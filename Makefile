@@ -5,7 +5,7 @@ CC=$(HOME)/bin/cross/bin/i686-elf-gcc
 LD=$(HOME)/bin/cross/bin/i686-elf-ld
 AS=nasm
 
-CFLAGS=-I./include -nostdlib -nostdinc -fno-builtin -Wall -Wextra
+CFLAGS=-I./include -nostdlib -nostdinc -fno-builtin -Wall -Wextra -g
 LDFLAGS=-Tsrc/link.ld
 ASFLAGS=-felf
 
