@@ -2,7 +2,7 @@ OBJECTS=src/boot.o src/kmain.o src/mem.o src/string.o src/vga.o src/kernel.o src
 KERNEL=mangOS.elf
 
 CC=clang
-LD=$(HOME)/bin/cross/bin/i686-elf-ld
+LD=ld.lld
 AS=nasm
 
 CFLAGS=-I ./include -ffreestanding -fno-builtin -nostdlib -nostdinc --target=i686-pc-none-elf -march=i686 -Wall -Wextra -g
@@ -15,7 +15,7 @@ ASFLAGS=-f elf
 all: $(OBJECTS) link
 
 clean:
-	rm -f src/*.o $(KERNEL)
+	rm -f $(OBJECTS) $(KERNEL)
 
 link:
 	$(LD) $(LDFLAGS) -o $(KERNEL) $(OBJECTS)
