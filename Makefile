@@ -1,4 +1,4 @@
-OBJECTS=src/boot.o src/kmain.o src/mem.o src/string.o src/vga.o src/kernel.o
+OBJECTS=src/boot.o src/kmain.o src/mem.o src/string.o src/vga.o src/kernel.o src/descriptors.o src/gdt.o src/idt.o src/isr.o src/interrupt.o
 KERNEL=mangOS.elf
 
 CC=$(HOME)/bin/cross/bin/i686-elf-gcc
