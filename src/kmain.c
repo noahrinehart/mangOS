@@ -5,7 +5,7 @@
 #include <keyboard.h>
 #include <multiboot.h>
 
-void kmain(multiboot_info_t *mboot_ptr)
+void kmain(struct multiboot_header *mboot_ptr)
 {
   init_descriptors();
 
@@ -13,8 +13,6 @@ void kmain(multiboot_info_t *mboot_ptr)
 
   asm volatile("sti"); // Enable interrupts
   init_keyboard();
-
-  vga_write(mboot_ptr->boot_loader_name);
 
   for(;;);
 }
