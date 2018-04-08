@@ -17,7 +17,7 @@ ASFLAGS=-f elf
 all: $(OBJECTS) link
 
 clean:
-	rm -f $(OBJECTS) $(KERNEL)
+	rm -f $(OBJECTS) $(KERNEL) $(ISO)
 
 link:
 	$(LD) $(LDFLAGS) -o $(KERNEL) $(OBJECTS)
