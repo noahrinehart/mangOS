@@ -8,6 +8,8 @@ MBOOT_FLAGS         equ MBOOT_ALIGN | MBOOT_MEMINFO
 MBOOT_MAGIC_NUMBER  equ 0x1BADB002
 MBOOT_CHECKSUM      equ -(MBOOT_MAGIC_NUMBER + MBOOT_FLAGS)
 
+bits 32
+
 section .multiboot
 align 4
   dd MBOOT_MAGIC_NUMBER
@@ -26,12 +28,10 @@ extern kmain
 global _start
 section .text
 _start:
-  mov esp, stack_top  ; Init stack
+  mov esp, stack_top  ; Setup stack
+  push ebx            ; Load multiboot info
+
+  cli                 ; Disable interrupts
   call kmain          ; Start Kernel
-  ;mov dword [0xb8000], 0x2f4b2f4f
-  cli                 ; Busy loop
-.hang:
-  hlt
-  jmp .hang
-.end: 
-  
+  jmp $ 
+.end
