@@ -1,4 +1,5 @@
 #include <vga.h>
+#include <io.h>
 
 uint16 *vga_memory = (uint16 *)0xB8000;
 
@@ -21,7 +22,7 @@ static void scroll()
   if (cursor_y >= 25)
   {
     int i;
-    for (i = 0*80; i < 24*00; i++)
+    for (i = 0*80; i < 24*80; i++)
     {
       vga_memory[i] = vga_memory[i+80];
     }

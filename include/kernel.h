@@ -12,9 +12,6 @@ typedef          short sint16;
 typedef unsigned char  uint8;
 typedef          char  sint8;
 
-void outb(uint16 port, uint8 value);
-uint8 inb(uint16 port);
-uint16 inw(uint16 port);
 
 #define PANIC(msg) panic(msg, __FILE__, __LINE__);
 #define ASSERT(b) ((b) ? (void)0 : panic_assert(#b, __FILE__, __LINE__))
