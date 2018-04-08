@@ -49,13 +49,13 @@ void vga_clear()
   move_cursor();
 }
 
-void vga_put(char c)
+void vga_put(const char c)
 {
   uint8 color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
   vga_put_color(c, color);
 }
 
-void vga_put_color(char c, uint8 color)
+void vga_put_color(const char c, uint8 color)
 {
   uint16 *location;
 
@@ -97,13 +97,13 @@ void vga_put_color(char c, uint8 color)
   move_cursor();
 }
 
-void vga_write(char *c)
+void vga_write(const char *c)
 {
   uint8 color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
   vga_write_color(c, color);
 }
 
-void vga_write_color(char *c, uint8 color)
+void vga_write_color(const char *c, uint8 color)
 {
   int i = 0;
   while (c[i])
@@ -189,13 +189,13 @@ void vga_write_dec_color(uint32 n, uint8 color)
   vga_write_color(c2, color);
 }
 
-void vga_put_at(char c, uint8 x, uint8 y)
+void vga_put_at(const char c, uint8 x, uint8 y)
 {
   uint8 color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
   vga_put_at_color(c, x, y, color);
 }
 
-void vga_put_at_color(char c, uint8 x, uint8 y, uint8 color)
+void vga_put_at_color(const char c, uint8 x, uint8 y, uint8 color)
 {
   // TODO
 }

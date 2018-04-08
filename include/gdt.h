@@ -17,7 +17,7 @@ typedef struct gdt_entry gdt_entry_t;
 
 
 // Describes GDT pointer. POints to start of array of GDT entires
-typedef struct gdt_ptr
+struct gdt_ptr
 {
   uint16 limit; // Upper 16 bits of selector limits
   uint32 base;  // Address of first gdt_entry_t

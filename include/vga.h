@@ -38,13 +38,13 @@ static inline uint16 vga_entry(unsigned char c, uint8 color)
 
 void vga_clear();
 
-void vga_put(char c);
+void vga_put(const char c);
 
-void vga_put_color(char c, uint8 color);
+void vga_put_color(const char c, uint8 color);
 
-void vga_write(char *c);
+void vga_write(const char *c);
 
-void vga_write_color(char *c, uint8 color);
+void vga_write_color(const char *c, uint8 color);
 
 void vga_write_hex(uint32 n);
 
@@ -54,8 +54,8 @@ void vga_write_dec(uint32 n);
 
 void vga_write_dec_color(uint32 n, uint8 color);
 
-void vga_put_at(char c, uint8 x, uint8 y);
+void vga_put_at(const char c, uint8 x, uint8 y);
 
-void vga_put_at_color(char c, uint8 x, uint8 y, uint8 color);
+void vga_put_at_color(const char c, uint8 x, uint8 y, uint8 color);
 
 #endif // VGA_H
