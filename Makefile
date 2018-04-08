@@ -29,8 +29,8 @@ run: $(ISO)
 	qemu-system-x86_64 -cdrom $(ISO)
 
 $(ISO): all
-	mkdir -p build/isofiles/boot/grub
-	cp $(KERNEL) build/isofiles/boot/kernel.bin
-	cp $(GRUB_CFG) build/isofiles/boot/grub
-	grub-mkrescue -o $(ISO) build/isofiles 2> /dev/null
-	rm -r build/isofiles
+	mkdir -p isofiles/boot/grub
+	cp $(KERNEL) isofiles/boot/kernel.bin
+	cp $(GRUB_CFG) isofiles/boot/grub
+	grub-mkrescue -o $(ISO) isofiles 2> /dev/null
+	rm -r isofiles
