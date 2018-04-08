@@ -3,4 +3,4 @@
 
 void init_descriptors();
 
-#endif
+#endif // DESCRIPTORS_H

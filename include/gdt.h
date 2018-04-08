@@ -33,4 +33,4 @@ static void init_gdt();
 static void gdt_set_gate(sint32, uint32, uint32, uint8, uint8);
 
 
-#endif
+#endif // GDT_H

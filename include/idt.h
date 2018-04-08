@@ -76,4 +76,4 @@ extern void irq14();
 extern void irq15();
 
 
-#endif
+#endif // IDT_H
