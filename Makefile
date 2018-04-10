@@ -1,7 +1,15 @@
-OBJECTS=src/multiboot.o src/boot.o src/kmain.o src/mem.o src/string.o src/vga.o src/kernel.o src/descriptors.o src/gdt.o src/idt.o src/isr.o src/interrupt.o src/io.o src/timer.o src/keyboard.o
-KERNEL=mangOS.elf
-ISO=mangOS.iso
-GRUB_CFG=src/grub.cfg
+SOURCEDIR=src
+BUILDDIR=build
+
+S_SOURCES=$(wildcard $(SOURCEDIR)/*.s)
+C_SOURCES=$(wildcard $(SOURCEDIR)/*.c)
+S_OBJECTS=$(patsubst $(SOURCEDIR)/%.s,$(BUILDDIR)/%.o, $(S_SOURCES))
+C_OBJECTS=$(patsubst $(SOURCEDIR)/%.c, $(BUILDDIR)/%.o, $(C_SOURCES))
+OBJECTS=$(S_OBJECTS) $(C_OBJECTS)
+
+KERNEL=$(BUILDDIR)/mangOS.elf
+ISO=$(BUILDDIR)/mangOS.iso
+GRUB_CFG=$(SOURCEDIR)/grub.cfg
 
 CC=clang
 LD=ld.lld
@@ -11,26 +19,32 @@ CFLAGS=-I ./include -ffreestanding -fno-builtin -nostdlib -nostdinc --target=i68
 LDFLAGS=-T src/link.ld
 ASFLAGS=-f elf
 
-.PHONY: all clean link
+.PHONY: all clean link run
 .SUFFIXES: .o .s. c
 
 all: $(OBJECTS) link
 
 clean:
-	rm -f $(OBJECTS) $(KERNEL) $(ISO)
+	rm -rf $(BUILDDIR)
 
 link:
 	$(LD) $(LDFLAGS) -o $(KERNEL) $(OBJECTS)
 
-.s.o:
-	$(AS) $(ASFLAGS) $<
+$(BUILDDIR)/%.o: $(SOURCEDIR)/%.s $(BUILDDIR)
+	$(AS) $(ASFLAGS) $< -o $@
+
+$(BUILDDIR)/%.o: $(SOURCEDIR)/%.c $(BUILDDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(BUILDDIR):
+	mkdir -p build
 
 run: $(ISO)
 	qemu-system-x86_64 -cdrom $(ISO)
 
 $(ISO): all
-	mkdir -p isofiles/boot/grub
-	cp $(KERNEL) isofiles/boot/kernel.bin
-	cp $(GRUB_CFG) isofiles/boot/grub
-	grub-mkrescue -o $(ISO) isofiles 2> /dev/null
-	rm -r isofiles
+	mkdir -p $(BUILDDIR)/isofiles/boot/grub
+	cp $(KERNEL) $(BUILDDIR)/isofiles/boot/kernel.bin
+	cp $(GRUB_CFG) $(BUILDDIR)/isofiles/boot/grub
+	grub-mkrescue -o $(ISO) $(BUILDDIR)/isofiles 2> /dev/null
+	rm -r $(BUILDDIR)/isofiles

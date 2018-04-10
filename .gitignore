@@ -1,4 +1,1 @@
-*/*.o
 build/
-mangOS.elf
-mangOS.iso
