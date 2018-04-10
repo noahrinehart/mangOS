@@ -11,15 +11,18 @@ void kmain(struct multiboot_header *mboot_ptr)
   init_descriptors();
 
   vga_clear();
-  vga_write("test");
+
+  vga_write("                              ___  ____  \n");
+  vga_write(" _ __ ___   __ _ _ __   __ _ / _ \\/ ___| \n");
+  vga_write("| '_ ` _ \\ / _` | '_ \\ / _` | | | \\___ \ \n");
+  vga_write("| | | | | | (_| | | | | (_| | |_| |___) |\n");
+  vga_write("|_| |_| |_|\\__,_|_| |_|\\__, |\\___/|____/ \n");
+  vga_write("                       |___/             \n");
+
+  print_mem_values();
 
   asm volatile("sti"); // Enable interrupts
   init_keyboard();
-
-  vga_write("Start of text: ");
-  vga_write_hex(text);
-  vga_put('\n');
-
 
 
   for(;;);
