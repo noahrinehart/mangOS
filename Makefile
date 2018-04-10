@@ -22,18 +22,18 @@ ASFLAGS=-f elf
 .PHONY: all clean link run
 .SUFFIXES: .o .s. c
 
-all: $(OBJECTS) link
+all: $(BUILDDIR) $(OBJECTS) $(KERNEL)
 
 clean:
 	rm -rf $(BUILDDIR)
 
-link:
+$(KERNEL):
 	$(LD) $(LDFLAGS) -o $(KERNEL) $(OBJECTS)
 
-$(BUILDDIR)/%.o: $(SOURCEDIR)/%.s $(BUILDDIR)
+$(BUILDDIR)/%.o: $(SOURCEDIR)/%.s
 	$(AS) $(ASFLAGS) $< -o $@
 
-$(BUILDDIR)/%.o: $(SOURCEDIR)/%.c $(BUILDDIR)
+$(BUILDDIR)/%.o: $(SOURCEDIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILDDIR):
