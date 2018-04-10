@@ -1,6 +1,7 @@
 #ifndef IDT_H
 #define IDT_H
 
+
 struct idt_entry
 {
   uint16 base_low;  // Lower 16 bits of address to jump to
