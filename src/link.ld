@@ -1,32 +1,39 @@
 /*
  * Link.ld -- Linker script for the kernel
 */
-
+OUTPUT_ARCH(i386)
 ENTRY(_start)
+base = 0x100000;
 SECTIONS
 {
-    . = 1M;
+  . = base;
+  . = ALIGN(4096);
+  .text :
+  {
+    text = ABSOLUTE(.);
+    KEEP(*(.multiboot))
+    *(.text .text.*)
+    *(.rodata .rodata.*) 
+    etext = ABSOLUTE(.);
+    . = ALIGN(4096);
+  }
 
-    .text ALIGN(4K) :
-    {
+  .data :
+  {
+    data = ABSOLUTE(.);
+    *(.data .data.*)
+    edata = ABSOLUTE(.);
+    . = ALIGN(4096);
+  }
 
-        KEEP(*(.multiboot))
-        *(.text)
-    }
-
-    .rodata ALIGN(4K) :
-    {
-        *(.rodata) 
-    }
-
-    .data ALIGN(4K) :
-    {
-        *(.data)
-    }
-
-    .bss ALIGN(4K) :
-    {
-        *(COMMON)
-        *(.bss)
-    }
+  .bss :
+  {
+    bss = ABSOLUTE(.);
+    *(COMMON)
+    *(.bss .bss.*)
+    ebss = ABSOLUTE(.);
+    . = ALIGN(4096);
+    end = ABSOLUTE(.);
+    . = ALIGN(4096);
+  }
 }
