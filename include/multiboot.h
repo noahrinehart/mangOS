@@ -1,6 +1,8 @@
 #ifndef MULTIBOOT_H
 #define MULTIBOOT_H
 
+#include <types.h>
+
 /* How many bytes from the start of the file we search for the header.  */
 #define MULTIBOOT_SEARCH			32768
 #define MULTIBOOT_HEADER_ALIGN			8
@@ -392,5 +394,7 @@ struct multiboot_tag_load_base_addr
 };
 
 #endif // ASM_FILE
+
+bool check_multiboot(struct multiboot_header *mboot_ptr);
 
 #endif // MULTIBOOT_H

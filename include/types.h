@@ -8,4 +8,8 @@ typedef          short sint16;
 typedef unsigned char  uint8;
 typedef          char  sint8;
 
+typedef uint8 bool;
+static bool true = 1;
+static bool false = 0;
+
 #endif // TYPES_H

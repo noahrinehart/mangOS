@@ -9,6 +9,10 @@
 
 void kmain(struct multiboot_header *mboot_ptr)
 {
+  if (!check_multiboot(mboot_ptr)) {
+    PANIC("Multiboot check failed!");
+  }
+
   init_descriptors();
 
   ENABLE_INT();
