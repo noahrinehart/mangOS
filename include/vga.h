@@ -46,16 +46,18 @@ void vga_write(const char *c);
 
 void vga_write_color(const char *c, uint8 color);
 
-void vga_write_hex(uint32 n);
+void vga_put_hex(uint32 n);
 
-void vga_write_hex_color(uint32 n, uint8 color);
+void vga_put_hex_color(uint32 n, uint8 color);
 
-void vga_write_dec(uint32 n);
+void vga_put_dec(uint32 n);
 
-void vga_write_dec_color(uint32 n, uint8 color);
+void vga_put_dec_color(uint32 n, uint8 color);
 
 void vga_put_at(const char c, uint8 x, uint8 y);
 
 void vga_put_at_color(const char c, uint8 x, uint8 y, uint8 color);
+
+void vga_printf(const char* format, ...);
 
 #endif // VGA_H

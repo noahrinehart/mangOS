@@ -1,8 +1,0 @@
-compile with -g
-qemu-system-x86_64 -kernel mangOS.elf -S -s
-gdb
-  target remote :1234
-  symbol-file mangOS.elf
-  break kmain
-  continue
-

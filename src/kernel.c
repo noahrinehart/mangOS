@@ -11,7 +11,7 @@ void panic(const char *message, const char *file, uint32 line)
   vga_write(") at ");
   vga_write(file);
   vga_write(":");
-  vga_write_dec(line);
+  vga_put_dec(line);
   vga_write("\n");
   for(;;); // Infinite loop
 }
@@ -24,7 +24,7 @@ void panic_assert(const char *desc, const char *file, uint32 line)
   vga_write(") at ");
   vga_write(file);
   vga_write(":");
-  vga_write_dec(line);
+  vga_put_dec(line);
   vga_write("\n");
   for(;;); // Infinite loop
 }

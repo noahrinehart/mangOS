@@ -110,13 +110,13 @@ void vga_write_color(const char *c, uint8 color)
     vga_put_color(c[i++], color);
 }
 
-void vga_write_hex(uint32 n)
+void vga_put_hex(uint32 n)
 {
   uint8 color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
-  vga_write_hex_color(n, color);
+  vga_put_hex_color(n, color);
 }
 
-void vga_write_hex_color(uint32 n, uint8 color)
+void vga_put_hex_color(uint32 n, uint8 color)
 {
   sint32 tmp;
   vga_write_color("0x", color);
@@ -154,13 +154,13 @@ void vga_write_hex_color(uint32 n, uint8 color)
   }
 }
 
-void vga_write_dec(uint32 n)
+void vga_put_dec(uint32 n)
 {
   uint8 color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
-  vga_write_dec_color(n, color);
+  vga_put_dec_color(n, color);
 }
 
-void vga_write_dec_color(uint32 n, uint8 color)
+void vga_put_dec_color(uint32 n, uint8 color)
 {
   if (n == 0)
   {
@@ -198,5 +198,40 @@ void vga_put_at(const char c, uint8 x, uint8 y)
 void vga_put_at_color(const char c, uint8 x, uint8 y, uint8 color)
 {
   // TODO
+}
+
+void vga_printf(const char* format, ...)
+{
+  uint32* arg = (uint32 *)&format; 
+  arg++;
+
+  const char *str;
+  char *s;
+
+  for (str = format; *str != '\0'; str++) {
+    if (*str != '%') {
+      vga_put(*str);
+    } else {
+      switch (*++str) {
+      case 'c':
+        vga_put(*arg++);
+        break;
+      
+      case 's':
+        for (s = *(char **)arg++; *s != '\0'; s++)
+          vga_put(*s);
+        break;
+      case 'x':
+        vga_put_hex(*arg++);
+        break;
+      case 'd':
+        vga_put_dec(*arg++);
+        break;
+      case '%':
+        vga_put('%');
+        break;
+      }
+    }
+  }
 }
 

@@ -10,7 +10,7 @@ void register_interrupt_handler(uint8 n, isr_t handler)
 void isr_handler(registers_t regs)
 {
   vga_write("received interrupt: ");
-  vga_write_dec(regs.int_no);
+  vga_put_dec(regs.int_no);
   vga_put('\n');
 }
 

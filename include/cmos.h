@@ -24,4 +24,4 @@ static uint32 get_update_in_progress_flag();
 static uint8 get_RTC_register(int reg);
 void read_rtc();
 
-#endif
+#endif // CMOS_H

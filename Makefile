@@ -44,6 +44,9 @@ $(BUILDDIR)/%.o: $(SOURCEDIR)/%.c $(H_SOURCES)
 run: $(ISO)
 	qemu-system-x86_64 -cdrom $(ISO)
 
+debug: $(ISO)
+	qemu-system-x86_64 -cdrom $(ISO) -S -s
+
 $(ISO): $(KERNEL)
 	mkdir -p $(BUILDDIR)/isofiles/boot/grub
 	cp $(KERNEL) $(BUILDDIR)/isofiles/boot/kernel.bin
