@@ -5,6 +5,7 @@
 #include <keyboard.h>
 #include <multiboot.h>
 #include <mem.h>
+#include <cmos.h>
 
 void kmain(struct multiboot_header *mboot_ptr)
 {
@@ -14,7 +15,7 @@ void kmain(struct multiboot_header *mboot_ptr)
 
   vga_write("                              ___  ____  \n");
   vga_write(" _ __ ___   __ _ _ __   __ _ / _ \\/ ___| \n");
-  vga_write("| '_ ` _ \\ / _` | '_ \\ / _` | | | \\___ \ \n");
+  vga_write("| '_ ` _ \\ / _` | '_ \\ / _` | | | \\___ \\ \n");
   vga_write("| | | | | | (_| | | | | (_| | |_| |___) |\n");
   vga_write("|_| |_| |_|\\__,_|_| |_|\\__, |\\___/|____/ \n");
   vga_write("                       |___/             \n");
@@ -24,6 +25,7 @@ void kmain(struct multiboot_header *mboot_ptr)
   asm volatile("sti"); // Enable interrupts
   init_keyboard();
 
+  read_rtc();
 
   for(;;);
 }
