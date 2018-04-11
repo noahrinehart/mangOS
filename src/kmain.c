@@ -11,8 +11,11 @@ void kmain(struct multiboot_header *mboot_ptr)
 {
   init_descriptors();
 
-  vga_clear();
+  asm volatile("sti"); // Enable interrupts
+  init_keyboard();
+  read_rtc();
 
+  vga_clear();
   vga_printf("                              ___  ____  \n");
   vga_printf(" _ __ ___   __ _ _ __   __ _ / _ \\/ ___| \n");
   vga_printf("| '_ ` _ \\ / _` | '_ \\ / _` | | | \\___ \\ \n");
@@ -20,13 +23,9 @@ void kmain(struct multiboot_header *mboot_ptr)
   vga_printf("|_| |_| |_|\\__,_|_| |_|\\__, |\\___/|____/ \n");
   vga_printf("                       |___/             \n");
 
+  vga_printf("\nCurrent time: %d/%d/%d\t%d:%d:%d\n\n", month, day, year, hour, minute, second);
+
   print_mem_values();
-
-  asm volatile("sti"); // Enable interrupts
-  init_keyboard();
-
-  read_rtc();
-  vga_printf("Current time: %d/%d/%d\t%d:%d:%d", month, day, year, hour, minute, second);
 
   for(;;);
 }

@@ -9,6 +9,7 @@
 
 void memset(uint8 *dest, uint8 val, uint32 len);
 void memcpy(uint8 *dest, const uint8 *src, uint32 len);
+void print_mem_values();
 
 extern char base[];  /* Start of memory */
 extern char text[];  /* Start of text segment  */

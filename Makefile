@@ -17,9 +17,9 @@ CC=clang
 LD=ld.lld
 AS=nasm
 
-CFLAGS=-I ./include -ffreestanding -fno-builtin -nostdlib -nostdinc --target=i686-pc-none-elf -march=i686 -Wall -Wextra -g
+CFLAGS=-I ./include -ffreestanding -fno-builtin -nostdlib -nostdinc --target=i686-pc-none-elf -march=i686 -m32 -Wall -Wextra -g
 LDFLAGS=-T src/link.ld
-ASFLAGS=-f elf
+ASFLAGS=-f elf32
 
 .PHONY: all clean run
 .SUFFIXES: .o .s. c

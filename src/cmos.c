@@ -12,7 +12,7 @@ static uint8 get_RTC_register(int reg) {
 }
 
 void read_rtc() {
-  uint8 century;
+  uint8 century = 0;
   uint8 last_second;
   uint8 last_minute;
   uint8 last_hour;

@@ -5,12 +5,7 @@
 #ifndef KERNEL_H
 #define KERNEL_H
 
-typedef unsigned int   uint32;
-typedef          int   sint32; 
-typedef unsigned short uint16;
-typedef          short sint16;
-typedef unsigned char  uint8;
-typedef          char  sint8;
+#include <types.h>
 
 
 #define PANIC(msg) panic(msg, __FILE__, __LINE__);
