@@ -1,6 +1,7 @@
 /*
  * Link.ld -- Linker script for the kernel
 */
+
 OUTPUT_ARCH(i386)
 ENTRY(_start)
 base = 0x100000;

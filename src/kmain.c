@@ -11,7 +11,8 @@ void kmain(struct multiboot_header *mboot_ptr)
 {
   init_descriptors();
 
-  asm volatile("sti"); // Enable interrupts
+  ENABLE_INT();
+
   init_keyboard();
   read_rtc();
 
