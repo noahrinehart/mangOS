@@ -1,25 +1,25 @@
-SOURCEDIR=src
-INCLUDEDIR=include
-BUILDDIR=build
+SOURCEDIR  	=	src
+INCLUDEDIR 	=	include
+BUILDDIR 		=	build
 
-S_SOURCES=$(wildcard $(SOURCEDIR)/*.s)
-C_SOURCES=$(wildcard $(SOURCEDIR)/*.c)
-H_SOURCES=$(wildcard $(INCLUDEDIR)/*.h)
-S_OBJECTS=$(patsubst $(SOURCEDIR)/%.s,$(BUILDDIR)/%.o, $(S_SOURCES))
-C_OBJECTS=$(patsubst $(SOURCEDIR)/%.c, $(BUILDDIR)/%.o, $(C_SOURCES))
-OBJECTS=$(S_OBJECTS) $(C_OBJECTS)
+S_SOURCES = $(wildcard $(SOURCEDIR)/*.s)
+C_SOURCES = $(wildcard $(SOURCEDIR)/*.c)
+H_SOURCES = $(wildcard $(INCLUDEDIR)/*.h)
+S_OBJECTS = $(patsubst $(SOURCEDIR)/%.s,$(BUILDDIR)/%.o, $(S_SOURCES))
+C_OBJECTS = $(patsubst $(SOURCEDIR)/%.c, $(BUILDDIR)/%.o, $(C_SOURCES))
+OBJECTS   = $(S_OBJECTS) $(C_OBJECTS)
 
-KERNEL=$(BUILDDIR)/mangOS.elf
-ISO=$(BUILDDIR)/mangOS.iso
-GRUB_CFG=$(SOURCEDIR)/grub.cfg
+KERNEL   = $(BUILDDIR)/mangOS.elf
+ISO 		 = $(BUILDDIR)/mangOS.iso
+GRUB_CFG = $(SOURCEDIR)/grub.cfg
 
-CC=clang
-LD=ld.lld
-AS=nasm
+CC = clang
+LD = ld.lld
+AS = nasm
 
-CFLAGS=-I ./include -ffreestanding -fno-builtin -nostdlib -nostdinc --target=i686-pc-none-elf -march=i686 -m32 -Wall -Wextra -g
-LDFLAGS=-T src/link.ld
-ASFLAGS=-f elf32
+CFLAGS  = -I ./include -ffreestanding -fno-builtin -nostdlib -nostdinc --target=i686-pc-none-elf -march=i686 -m32 -Wall -Wextra -g
+LDFLAGS = -T src/link.ld
+ASFLAGS = -f elf32
 
 .PHONY: all clean run
 .SUFFIXES: .o .s. c
