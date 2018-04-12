@@ -197,7 +197,10 @@ void vga_put_at(const char c, uint8 x, uint8 y)
 
 void vga_put_at_color(const char c, uint8 x, uint8 y, uint8 color)
 {
-  // TODO
+  cursor_x = x;
+  cursor_y = y;
+  move_cursor();
+  vga_put_color(c, color);
 }
 
 void vga_printf(const char* format, ...)
