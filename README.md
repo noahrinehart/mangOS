@@ -10,13 +10,14 @@
 - [x] Create basic IDT/IQR's
 - [x] Keyboard/timer support
 - [x] Multiboot info
-- [ ] Add checks for long mode
+- [x] Add checks for long mode
 - [ ] Add basic paging
-- [ ] Enter long mode (64bit)
 - [ ] Heap support
 - [ ] VFS/initrd
 - [ ] Multitasking
 - [ ] Userland
+- [ ] Enter long mode (64bit)
+
 
 
 #### Sources
