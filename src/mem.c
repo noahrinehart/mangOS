@@ -1,21 +1,20 @@
 #include <mem.h>
 #include <vga.h>
 
-void memcpy(uint8 *dest, const uint8 *src, uint32 len)
-{
+void memcpy(uint8 *dest, const uint8 *src, uint32 len) {
   const uint8 *sp = (const uint8 *)src;
   uint8 *dp = (uint8 *)dest;
-  for(; len != 0; len--) *dp++ = *sp++;
+  for (; len != 0; len--)
+    *dp++ = *sp++;
 }
 
-void memset(uint8 *dest, uint8 val, uint32 len)
-{   
+void memset(uint8 *dest, uint8 val, uint32 len) {
   uint8 *temp = (uint8 *)dest;
-  for ( ; len != 0; len--) *temp++ = val;
+  for (; len != 0; len--)
+    *temp++ = val;
 }
 
-void print_mem_values()
-{
+void print_mem_values() {
   vga_write("Start: ");
   vga_put_hex((uint32)base);
   vga_put('\n');

@@ -1,16 +1,14 @@
 #include <gdt.h>
 #include <idt.h>
-#include <mem.h>
 #include <io.h>
+#include <mem.h>
 
-void init_descriptors()
-{
+void init_descriptors() {
   init_gdt();
   init_idt();
 }
 
-static void init_gdt()
-{
+static void init_gdt() {
   gdt_ptr.limit = (sizeof(gdt_entry_t) * 5) - 1;
   gdt_ptr.base = (uint32)&gdt_entries;
 
@@ -23,25 +21,24 @@ static void init_gdt()
   gdt_flush((uint32)&gdt_ptr);
 }
 
-static void gdt_set_gate(sint32 num, uint32 base, uint32 limit, uint8 access, uint8 gran)
-{
-  gdt_entries[num].base_low    = (base & 0xFFFF);
+static void gdt_set_gate(sint32 num, uint32 base, uint32 limit, uint8 access,
+                         uint8 gran) {
+  gdt_entries[num].base_low = (base & 0xFFFF);
   gdt_entries[num].base_middle = (base >> 16) & 0xFF;
-  gdt_entries[num].base_high   = (base >> 24) & 0xFF;
+  gdt_entries[num].base_high = (base >> 24) & 0xFF;
 
-  gdt_entries[num].limit_low   = (limit & 0xFFFF);
+  gdt_entries[num].limit_low = (limit & 0xFFFF);
   gdt_entries[num].granularity = (limit >> 16) & 0x0F;
 
   gdt_entries[num].granularity |= gran & 0xF0;
-  gdt_entries[num].access      = access;
+  gdt_entries[num].access = access;
 }
 
-static void init_idt()
-{
+static void init_idt() {
   idt_ptr.limit = sizeof(idt_entry_t) * 256 - 1;
-  idt_ptr.base  = (uint32)&idt_entries;
+  idt_ptr.base = (uint32)&idt_entries;
 
-  memset((uint8 *)&idt_entries, 0, sizeof(idt_entry_t)*256);
+  memset((uint8 *)&idt_entries, 0, sizeof(idt_entry_t) * 256);
 
   outb(0x20, 0x11);
   outb(0xA0, 0x11);
@@ -54,16 +51,16 @@ static void init_idt()
   outb(0x21, 0x0);
   outb(0xA1, 0x0);
 
-  idt_set_gate( 0, (uint32)isr0 , 0x08, 0x8E);
-  idt_set_gate( 1, (uint32)isr1 , 0x08, 0x8E);
-  idt_set_gate( 2, (uint32)isr2 , 0x08, 0x8E);
-  idt_set_gate( 3, (uint32)isr3 , 0x08, 0x8E);
-  idt_set_gate( 4, (uint32)isr4 , 0x08, 0x8E);
-  idt_set_gate( 5, (uint32)isr5 , 0x08, 0x8E);
-  idt_set_gate( 6, (uint32)isr6 , 0x08, 0x8E);
-  idt_set_gate( 7, (uint32)isr7 , 0x08, 0x8E);
-  idt_set_gate( 8, (uint32)isr8 , 0x08, 0x8E);
-  idt_set_gate( 9, (uint32)isr9 , 0x08, 0x8E);
+  idt_set_gate(0, (uint32)isr0, 0x08, 0x8E);
+  idt_set_gate(1, (uint32)isr1, 0x08, 0x8E);
+  idt_set_gate(2, (uint32)isr2, 0x08, 0x8E);
+  idt_set_gate(3, (uint32)isr3, 0x08, 0x8E);
+  idt_set_gate(4, (uint32)isr4, 0x08, 0x8E);
+  idt_set_gate(5, (uint32)isr5, 0x08, 0x8E);
+  idt_set_gate(6, (uint32)isr6, 0x08, 0x8E);
+  idt_set_gate(7, (uint32)isr7, 0x08, 0x8E);
+  idt_set_gate(8, (uint32)isr8, 0x08, 0x8E);
+  idt_set_gate(9, (uint32)isr9, 0x08, 0x8E);
   idt_set_gate(10, (uint32)isr10, 0x08, 0x8E);
   idt_set_gate(11, (uint32)isr11, 0x08, 0x8E);
   idt_set_gate(12, (uint32)isr12, 0x08, 0x8E);
@@ -86,16 +83,16 @@ static void init_idt()
   idt_set_gate(29, (uint32)isr29, 0x08, 0x8E);
   idt_set_gate(30, (uint32)isr30, 0x08, 0x8E);
   idt_set_gate(31, (uint32)isr31, 0x08, 0x8E);
-  idt_set_gate(32, (uint32)irq0,  0x08, 0x8E);
-  idt_set_gate(33, (uint32)irq1,  0x08, 0x8E);
-  idt_set_gate(34, (uint32)irq2,  0x08, 0x8E);
-  idt_set_gate(35, (uint32)irq3,  0x08, 0x8E);
-  idt_set_gate(36, (uint32)irq4,  0x08, 0x8E);
-  idt_set_gate(37, (uint32)irq5,  0x08, 0x8E);
-  idt_set_gate(38, (uint32)irq6,  0x08, 0x8E);
-  idt_set_gate(39, (uint32)irq7,  0x08, 0x8E);
-  idt_set_gate(40, (uint32)irq8,  0x08, 0x8E);
-  idt_set_gate(41, (uint32)irq9,  0x08, 0x8E);
+  idt_set_gate(32, (uint32)irq0, 0x08, 0x8E);
+  idt_set_gate(33, (uint32)irq1, 0x08, 0x8E);
+  idt_set_gate(34, (uint32)irq2, 0x08, 0x8E);
+  idt_set_gate(35, (uint32)irq3, 0x08, 0x8E);
+  idt_set_gate(36, (uint32)irq4, 0x08, 0x8E);
+  idt_set_gate(37, (uint32)irq5, 0x08, 0x8E);
+  idt_set_gate(38, (uint32)irq6, 0x08, 0x8E);
+  idt_set_gate(39, (uint32)irq7, 0x08, 0x8E);
+  idt_set_gate(40, (uint32)irq8, 0x08, 0x8E);
+  idt_set_gate(41, (uint32)irq9, 0x08, 0x8E);
   idt_set_gate(42, (uint32)irq10, 0x08, 0x8E);
   idt_set_gate(43, (uint32)irq11, 0x08, 0x8E);
   idt_set_gate(44, (uint32)irq12, 0x08, 0x8E);
@@ -106,11 +103,10 @@ static void init_idt()
   idt_flush((uint32)&idt_ptr);
 }
 
-static void idt_set_gate(uint8 num, uint32 base, uint16 sel, uint8 flags)
-{
-  idt_entries[num].base_low   = base & 0xFFFF;
-  idt_entries[num].base_high  = (base >> 16) & 0xFFFF;
-  idt_entries[num].sel        = sel;
-  idt_entries[num].always0    = 0;
-  idt_entries[num].flags      = flags;
+static void idt_set_gate(uint8 num, uint32 base, uint16 sel, uint8 flags) {
+  idt_entries[num].base_low = base & 0xFFFF;
+  idt_entries[num].base_high = (base >> 16) & 0xFFFF;
+  idt_entries[num].sel = sel;
+  idt_entries[num].always0 = 0;
+  idt_entries[num].flags = flags;
 }

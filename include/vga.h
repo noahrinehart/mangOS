@@ -26,13 +26,11 @@ enum vga_color {
   VGA_COLOR_WHITE = 15,
 };
 
-static inline uint8 vga_entry_color(enum vga_color fg, enum vga_color bg)
-{
+static inline uint8 vga_entry_color(enum vga_color fg, enum vga_color bg) {
   return (bg << 4) | (fg & 0x0F);
 }
 
-static inline uint16 vga_entry(unsigned char c, uint8 color)
-{
+static inline uint16 vga_entry(unsigned char c, uint8 color) {
   return c | color << 8;
 }
 
@@ -58,6 +56,6 @@ void vga_put_at(const char c, uint8 x, uint8 y);
 
 void vga_put_at_color(const char c, uint8 x, uint8 y, uint8 color);
 
-void vga_printf(const char* format, ...);
+void vga_printf(const char *format, ...);
 
 #endif // VGA_H

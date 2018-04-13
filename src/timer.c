@@ -1,21 +1,19 @@
-#include <timer.h>
-#include <isr.h>
-#include <vga.h>
 #include <io.h>
+#include <isr.h>
+#include <timer.h>
+#include <vga.h>
 
-uint32 tick = 0;
+uint32 clktick = 0;
 
-static void timer_callback(registers_t regs)
-{
-  tick++;
-  vga_write("Tick: ");
-  vga_put_dec(tick);
-  vga_write("\n");
+/* Can take registers_t regs as parameter */
+static void timer_callback() {
+  clktick++;
+  /* vga_write("Tick: "); */
+  /* vga_put_dec(tick); */
+  /* vga_write("\n"); */
 }
 
-
-void init_timer(uint32 frequency)
-{
+void init_timer(uint32 frequency) {
   register_interrupt_handler(IRQ0, &timer_callback);
 
   uint32 divisor = 1193180 / frequency;

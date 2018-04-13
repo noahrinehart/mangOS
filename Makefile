@@ -21,7 +21,7 @@ CFLAGS  = -I ./include -ffreestanding -fno-builtin -nostdlib -nostdinc --target=
 LDFLAGS = -T src/link.ld
 ASFLAGS = -f elf32
 
-.PHONY: all clean run
+.PHONY: all clean run format
 .SUFFIXES: .o .s. c
 
 all: $(KERNEL)
@@ -52,3 +52,7 @@ $(ISO): $(KERNEL)
 	cp $(KERNEL) $(BUILDDIR)/isofiles/boot/kernel.bin
 	cp $(GRUB_CFG) $(BUILDDIR)/isofiles/boot/grub
 	grub-mkrescue -o $(ISO) $(BUILDDIR)/isofiles 2> /dev/null
+
+format:
+	clang-format -i $(C_SOURCES)
+	clang-format -i $(H_SOURCES)
