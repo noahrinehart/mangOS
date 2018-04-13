@@ -21,7 +21,7 @@ CFLAGS  = -I ./include -ffreestanding -fno-builtin -nostdlib -nostdinc --target=
 LDFLAGS = -T src/link.ld
 ASFLAGS = -f elf32
 
-.PHONY: all clean run debug format
+.PHONY: all clean run debug format tidy
 .SUFFIXES: .o .s. c
 
 all: $(KERNEL)
@@ -55,7 +55,9 @@ debug: $(ISO)
 	@echo "Run gdb in this directory"
 	qemu-system-x86_64 -cdrom $(ISO) -S -s
 
-
 format:
 	clang-format -i $(C_SOURCES)
 	clang-format -i $(H_SOURCES)
+
+tidy:
+	clang-tidy $(C_SOURCES) -- $(CFLAGS)
