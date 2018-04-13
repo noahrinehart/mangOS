@@ -21,7 +21,7 @@ CFLAGS  = -I ./include -ffreestanding -fno-builtin -nostdlib -nostdinc --target=
 LDFLAGS = -T src/link.ld
 ASFLAGS = -f elf32
 
-.PHONY: all clean run format
+.PHONY: all clean run debug format
 .SUFFIXES: .o .s. c
 
 all: $(KERNEL)
@@ -44,14 +44,17 @@ $(BUILDDIR)/%.o: $(SOURCEDIR)/%.c $(H_SOURCES)
 run: $(ISO)
 	qemu-system-x86_64 -cdrom $(ISO)
 
-debug: $(ISO)
-	qemu-system-x86_64 -cdrom $(ISO) -S -s
 
 $(ISO): $(KERNEL)
 	mkdir -p $(BUILDDIR)/isofiles/boot/grub
 	cp $(KERNEL) $(BUILDDIR)/isofiles/boot/kernel.bin
 	cp $(GRUB_CFG) $(BUILDDIR)/isofiles/boot/grub
 	grub-mkrescue -o $(ISO) $(BUILDDIR)/isofiles 2> /dev/null
+
+debug: $(ISO)
+	@echo "Run gdb in this directory"
+	qemu-system-x86_64 -cdrom $(ISO) -S -s
+
 
 format:
 	clang-format -i $(C_SOURCES)
