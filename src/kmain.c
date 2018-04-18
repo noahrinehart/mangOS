@@ -13,7 +13,7 @@ void kmain() {
   ENABLE_INT();
 
   init_keyboard();
-  init_timer(50);
+  init_timer();
   read_rtc();
 
   vga_printf("                              ___  ____  \n");
