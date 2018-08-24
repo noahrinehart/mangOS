@@ -20,7 +20,6 @@ continue
 ```
 
 #### TODO
-
 - [x] Create starting point in 32 bit
 - [x] Basic segmentation
 - [x] Create basic GDT

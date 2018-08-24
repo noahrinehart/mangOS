@@ -1,6 +1,6 @@
-SOURCEDIR  	=	src
-INCLUDEDIR 	=	include
-BUILDDIR 		=	build
+SOURCEDIR	= src
+INCLUDEDIR	= include
+BUILDDIR	= build
 
 S_SOURCES = $(wildcard $(SOURCEDIR)/*.s)
 C_SOURCES = $(wildcard $(SOURCEDIR)/*.c)
@@ -43,7 +43,6 @@ $(BUILDDIR)/%.o: $(SOURCEDIR)/%.c $(H_SOURCES)
 
 run: $(ISO)
 	qemu-system-x86_64 -cdrom $(ISO)
-
 
 $(ISO): $(KERNEL)
 	mkdir -p $(BUILDDIR)/isofiles/boot/grub
