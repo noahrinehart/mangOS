@@ -7,8 +7,8 @@
 
 #include <types.h>
 
-#define ENABLE_INT() asm volatile("sti")
 #define DISABLE_INT() asm volatile("cli")
+#define ENABLE_INT() asm volatile("sti")
 
 #define PANIC(msg) panic(msg, __FILE__, __LINE__)
 #define ASSERT(b) ((b) ? (void)0 : panic_assert(#b, __FILE__, __LINE__))

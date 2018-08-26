@@ -1,3 +1,6 @@
+extern isr_handler
+extern irq_handler
+
 %macro ISR_NOERRCODE 1
   global isr%1
   isr%1:
@@ -73,7 +76,6 @@ IRQ  13,    45
 IRQ  14,    46
 IRQ  15,    47
 
-extern isr_handler
 
 isr_common_stub:
   pusha
@@ -99,9 +101,6 @@ isr_common_stub:
   sti
   iret
 
-
-extern irq_handler
-
 irq_common_stub:
   pusha
   mov ax, ds
@@ -126,3 +125,4 @@ irq_common_stub:
   add esp, 8
   sti
   iret
+

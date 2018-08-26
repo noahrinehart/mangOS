@@ -1,6 +1,9 @@
 #ifndef IDT_H
 #define IDT_H
 
+/**
+ * Entry in IDT array
+ */
 struct idt_entry {
   uint16 base_low;  // Lower 16 bits of address to jump to
   uint16 sel;       // Kernel segment selector
@@ -10,13 +13,23 @@ struct idt_entry {
 } __attribute__((packed));
 typedef struct idt_entry idt_entry_t;
 
+/**
+ * Struct holding length and pointer to first entry in IDT
+ */
 struct idt_ptr {
-  uint16 limit;
-  uint32 base; // Address of first element in idt_entry array
+  uint16 limit; // Length of IDT in bytes - 1
+  uint32 base;  // Address of first element in idt_entry array
 } __attribute__((packed));
 typedef struct idt_ptr idt_ptr_t;
 
+/**
+ * Array of IDT entries
+ */
 idt_entry_t idt_entries[256];
+
+/**
+ * Pointer to IDT
+ */
 idt_ptr_t idt_ptr;
 
 extern void idt_flush(uint32);

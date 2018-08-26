@@ -18,7 +18,7 @@ static void timer_callback() {
 void init_timer() {
   register_interrupt_handler(IRQ0, &timer_callback);
 
-  uint32 divisor = 1193180 / CLOCK_FREQUENCY;
+  uint32 divisor = 1193182 / CLOCK_FREQUENCY;
 
   outb(0x43, 0x36);
 
