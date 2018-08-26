@@ -6,15 +6,15 @@
 uint8 kbdus[128] = {
                     0, /* None */
                     0, /* Esc  */
-                    '1',  '2',  '3',  '4',  '5',  '6', '7', '8', '9', '0',
-                    '-',  '=',  '\b', '\t', 'q', 'w', 'e', 'r',  't', 'y',
-                    'u',  'i',  'o',  'p', '[', ']', '\n',
+                    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+                    '-', '=', '\b', '\t', 'q', 'w', 'e', 'r', 't', 'y',
+                    'u', 'i', 'o', 'p', '[', ']', '\n',
                     0, /* Left control */
-                    'a',  's',  'd',  'f', 'g', 'h', 'j',  'k', 'l',
-                    ';',  '\'', '`',
+                    'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l',
+                    ';', '\'', '`',
                     0, /* Left Shift */
-                    '\\', 'z',  'x',  'c', 'v', 'b', 'n',  'm', ',',
-                    '.',  '/',
+                    '\\', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',',
+                    '.', '/',
                     0, /* Right Shift */
                     '*',
                     0, /* Left alt */
@@ -32,14 +32,53 @@ uint8 kbdus[128] = {
                     0, /* F10 */
                     0, /* NumLock */
                     0, /* ScrollLock */
-                    '7', '8',  '9',  '-',  '4', '5', '6', '+',
-                    '1', '2', '3',  '0',  '.',
+                    '7', '8', '9', '-', '4', '5', '6', '+',
+                    '1', '2', '3', '0', '.',
                     0, /* None */
                     0, /* None */
                     0, /* None */
                     0, /* F11 */
                     0, /* F12 */
 };
+
+uint8 kbdus_shift[128] = {
+                    0, /* None */
+                    0, /* Esc  */
+                    '!', '@', '#', '$', '%', '^', '&', '*', '(', ')',
+                    '_', '+', '\b', '\t', 'Q', 'W', 'E', 'R', 'T', 'Y',
+                    'U', 'I', 'O', 'P', '{', '}', '\n',
+                    0, /* Left control */
+                    'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
+                    ':', '"', '~',
+                    0, /* Left Shift */
+                    '|', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<',
+                    '>',  '?',
+                    0, /* Right Shift */
+                    '*',
+                    0, /* Left alt */
+                    ' ',
+                    0, /* CapsLock */
+                    0, /* F1 */
+                    0, /* F2 */
+                    0, /* F3 */
+                    0, /* F4 */
+                    0, /* F5 */
+                    0, /* F6 */
+                    0, /* F7 */
+                    0, /* F8 */
+                    0, /* F9 */
+                    0, /* F10 */
+                    0, /* NumLock */
+                    0, /* ScrollLock */
+                    '7', '8', '9', '-', '4', '5', '6', '+',
+                    '1', '2', '3', '0', '.',
+                    0, /* None */
+                    0, /* None */
+                    0, /* None */
+                    0, /* F11 */
+                    0, /* F12 */
+};
+
 
 bool scroll_lock = false;
 bool num_lock = false;
@@ -72,7 +111,13 @@ static uint32 build_keycode(uint8 scancode) {
    */
   uint32 keycode = 0; 
 
-  keycode |= kbdus[scancode];
+  /* Change case */
+  uint8 ascii = kbdus[scancode];
+  if (left_shift) {
+    ascii = kbdus_shift[scancode];
+  }
+
+  keycode |= ascii;
   keycode |= scancode << 8;
   keycode |= scroll_lock << 16;
   keycode |= num_lock << 17;
@@ -93,13 +138,13 @@ static uint32 build_keycode(uint8 scancode) {
 void handle_modifiers(uint8 scancode) {
   switch (scancode) {
   case 0x46: /* Scroll lock pressed */
-    scroll_lock = true;
+    scroll_lock = !scroll_lock;
     break;
   case 0x45: /* Num lock pressed */
-    num_lock = true;
+    num_lock = !num_lock;
     break;
   case 0x3A: /* Caps lock pressed */
-    caps_lock = true;
+    caps_lock = !caps_lock;
     break;
   case 0x2A: /* Left shift pressed */
     left_shift = true;
@@ -109,15 +154,6 @@ void handle_modifiers(uint8 scancode) {
     break;
   case 0x38: /* Left alt pressed */
     left_alt = true;
-    break;
-  case 0xC6: /* Scroll lock released */ 
-    scroll_lock = false;
-    break;
-  case 0xC5: /* Num lock released */
-    num_lock = false;
-    break;
-  case 0xBA: /* Caps lock released */
-    caps_lock = false;
     break;
   case 0xAA: /* Left shift released */
     left_shift = false;
@@ -132,7 +168,7 @@ void handle_modifiers(uint8 scancode) {
 }
 
 /* Can take registers_t regs as parameter */
-/* TODO locks, right side */
+/* TODO right side */
 static void keyboard_handler() {
   uint8 scancode = inb(0x60);
 
@@ -143,6 +179,7 @@ static void keyboard_handler() {
   if (scancode & 0x80) {
   } else {
     vga_put(keycode & 0xFF);
+    /* vga_put(kbdus[scancode]); */
   }
 }
 

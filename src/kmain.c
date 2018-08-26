@@ -9,11 +9,11 @@
 
 void kmain() {
   init_descriptors();
+  init_keyboard();
+  init_timer();
 
   ENABLE_INT();
-
-  init_keyboard();
-  /* init_timer(); */
+  
   read_rtc();
 
   vga_printf("                              ___  ____  \n");

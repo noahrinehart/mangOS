@@ -10,7 +10,6 @@ static void timer_callback() {
   static int clock1000 = 1000;
   if ((--clock1000) <= 0) {
     clktick++;
-    vga_printf("Tick: %d\n", clktick);
     clock1000 = 1000;
   }
 }
