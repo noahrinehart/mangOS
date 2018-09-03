@@ -6,22 +6,22 @@
 /**
  * Read a byte from the specified port
  */
-uint8 inb(uint16 port);
+uint8_t inb(uint16_t port);
 
 /**
  * Send a byte to the specified port
  */
-void outb(uint16 port, uint8 value);
+void outb(uint16_t port, uint8_t value);
 
 
 /**
  * Read a word from the specified port
  */
-uint16 inw(uint16 port);
+uint16_t inw(uint16_t port);
 
 /**
  * Send a word to the specified port
  */
-void outw(uint16 port, uint16 value);
+void outw(uint16_t port, uint16_t value);
 
 #endif // IO_H

@@ -1,49 +1,49 @@
 #include <mem.h>
 #include <vga.h>
 
-void memcpy(uint8 *dest, const uint8 *src, uint32 len) {
-  const uint8 *sp = (const uint8 *)src;
-  uint8 *dp = (uint8 *)dest;
+void memcpy(uint8_t *dest, const uint8_t *src, uint32_t len) {
+  const uint8_t *sp = (const uint8_t *)src;
+  uint8_t *dp = (uint8_t *)dest;
   for (; len != 0; len--)
     *dp++ = *sp++;
 }
 
-void memset(uint8 *dest, uint8 val, uint32 len) {
-  uint8 *temp = (uint8 *)dest;
+void memset(uint8_t *dest, uint8_t val, uint32_t len) {
+  uint8_t *temp = (uint8_t *)dest;
   for (; len != 0; len--)
     *temp++ = val;
 }
 
 void print_mem_values() {
   vga_write("Start: ");
-  vga_put_hex((uint32)base);
+  vga_put_hex((uint32_t)base);
   vga_put('\n');
 
   vga_write("Start of text: ");
-  vga_put_hex((uint32)text);
+  vga_put_hex((uint32_t)text);
   vga_put('\n');
 
   vga_write("End of text: ");
-  vga_put_hex((uint32)etext);
+  vga_put_hex((uint32_t)etext);
   vga_put('\n');
 
   vga_write("Start of data: ");
-  vga_put_hex((uint32)data);
+  vga_put_hex((uint32_t)data);
   vga_put('\n');
 
   vga_write("End of data: ");
-  vga_put_hex((uint32)edata);
+  vga_put_hex((uint32_t)edata);
   vga_put('\n');
 
   vga_write("Start of bss: ");
-  vga_put_hex((uint32)bss);
+  vga_put_hex((uint32_t)bss);
   vga_put('\n');
 
   vga_write("End of bss: ");
-  vga_put_hex((uint32)ebss);
+  vga_put_hex((uint32_t)ebss);
   vga_put('\n');
 
   vga_write("End: ");
-  vga_put_hex((uint32)end);
+  vga_put_hex((uint32_t)end);
   vga_put('\n');
 }

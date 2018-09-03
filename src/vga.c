@@ -1,13 +1,13 @@
 #include <io.h>
 #include <vga.h>
 
-uint16 *vga_memory = (uint16 *)0xB8000;
+uint16_t *vga_memory = (uint16_t *)0xB8000;
 
-uint8 cursor_x = 0;
-uint8 cursor_y = 0;
+uint8_t cursor_x = 0;
+uint8_t cursor_y = 0;
 
 static void move_cursor() {
-  uint16 cursor_location = cursor_y * 80 + cursor_x;
+  uint16_t cursor_location = cursor_y * 80 + cursor_x;
   outb(0x3D4, 14);                   // Tell vga setting high cursor byte
   outb(0x3D5, cursor_location >> 8); // Send high cursor byte
   outb(0x3D4, 15);                   // Tell vga setting low cursor byte
@@ -15,7 +15,7 @@ static void move_cursor() {
 }
 
 static void scroll() {
-  uint16 blank =
+  uint16_t blank =
       vga_entry(' ', vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK));
 
   if (cursor_y >= 25) {
@@ -31,7 +31,7 @@ static void scroll() {
 }
 
 void vga_clear() {
-  uint16 blank =
+  uint16_t blank =
       vga_entry(' ', vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK));
 
   int i;
@@ -45,12 +45,12 @@ void vga_clear() {
 }
 
 void vga_put(const char c) {
-  uint8 color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
+  uint8_t color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
   vga_put_color(c, color);
 }
 
-void vga_put_color(const char c, uint8 color) {
-  uint16 *location;
+void vga_put_color(const char c, uint8_t color) {
+  uint16_t *location;
 
   // Backspace
   if (c == 0x08 && cursor_x) {
@@ -85,23 +85,23 @@ void vga_put_color(const char c, uint8 color) {
 }
 
 void vga_write(const char *c) {
-  uint8 color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
+  uint8_t color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
   vga_write_color(c, color);
 }
 
-void vga_write_color(const char *c, uint8 color) {
+void vga_write_color(const char *c, uint8_t color) {
   int i = 0;
   while (c[i])
     vga_put_color(c[i++], color);
 }
 
-void vga_put_hex(uint32 n) {
-  uint8 color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
+void vga_put_hex(uint32_t n) {
+  uint8_t color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
   vga_put_hex_color(n, color);
 }
 
-void vga_put_hex_color(uint32 n, uint8 color) {
-  sint32 tmp;
+void vga_put_hex_color(uint32_t n, uint8_t color) {
+  int32_t tmp;
   vga_write_color("0x", color);
   char noZeroes = 1;
 
@@ -129,18 +129,18 @@ void vga_put_hex_color(uint32 n, uint8 color) {
   }
 }
 
-void vga_put_dec(uint32 n) {
-  uint8 color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
+void vga_put_dec(uint32_t n) {
+  uint8_t color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
   vga_put_dec_color(n, color);
 }
 
-void vga_put_dec_color(uint32 n, uint8 color) {
+void vga_put_dec_color(uint32_t n, uint8_t color) {
   if (n == 0) {
     vga_put_color('0', color);
     return;
   }
 
-  sint32 acc = n;
+  int32_t acc = n;
   char c[32];
   int i = 0;
   while (acc > 0) {
@@ -159,12 +159,12 @@ void vga_put_dec_color(uint32 n, uint8 color) {
   vga_write_color(c2, color);
 }
 
-void vga_put_at(const char c, uint8 x, uint8 y) {
-  uint8 color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
+void vga_put_at(const char c, uint8_t x, uint8_t y) {
+  uint8_t color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
   vga_put_at_color(c, x, y, color);
 }
 
-void vga_put_at_color(const char c, uint8 x, uint8 y, uint8 color) {
+void vga_put_at_color(const char c, uint8_t x, uint8_t y, uint8_t color) {
   cursor_x = x;
   cursor_y = y;
   move_cursor();
@@ -172,7 +172,7 @@ void vga_put_at_color(const char c, uint8 x, uint8 y, uint8 color) {
 }
 
 void vga_printf(const char *format, ...) {
-  uint32 *arg = (uint32 *)&format;
+  uint32_t *arg = (uint32_t *)&format;
   arg++;
 
   const char *str;

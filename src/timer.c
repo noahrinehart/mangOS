@@ -3,7 +3,7 @@
 #include <timer.h>
 #include <vga.h>
 
-uint32 clktick = 0;
+uint32_t clktick = 0;
 
 /* Can take registers_t regs as parameter */
 static void timer_callback() {
@@ -17,12 +17,12 @@ static void timer_callback() {
 void init_timer() {
   register_interrupt_handler(IRQ0, &timer_callback);
 
-  uint32 divisor = 1193182 / CLOCK_FREQUENCY;
+  uint32_t divisor = 1193182 / CLOCK_FREQUENCY;
 
   outb(0x43, 0x36);
 
-  uint8 l = (uint8)(divisor & 0xFF);
-  uint8 h = (uint8)((divisor >> 8) & 0xFF);
+  uint8_t l = (uint8_t)(divisor & 0xFF);
+  uint8_t h = (uint8_t)((divisor >> 8) & 0xFF);
 
   outb(0x40, l);
   outb(0x40, h);

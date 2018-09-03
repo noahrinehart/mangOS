@@ -6,14 +6,12 @@
 
 #define CURRENT_YEAR 2018
 
-static uint32 century_register = 0x00;
-
-uint8 second;
-uint8 minute;
-uint8 hour;
-uint8 day;
-uint8 month;
-uint32 year;
+uint8_t second;
+uint8_t minute;
+uint8_t hour;
+uint8_t day;
+uint8_t month;
+uint32_t year;
 
 enum {
   cmos_address = 0x70,

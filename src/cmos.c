@@ -1,25 +1,27 @@
 #include <cmos.h>
 
-static uint32 get_update_in_progress_flag() {
+static uint32_t century_register = 0x00;
+
+static uint32_t get_update_in_progress_flag() {
   outb(cmos_address, 0x0A);
   return (inb(cmos_data) & 0x80);
 }
 
-static uint8 get_RTC_register(int reg) {
+static uint8_t get_RTC_register(int reg) {
   outb(cmos_address, reg);
   return inb(cmos_data);
 }
 
 void read_rtc() {
-  uint8 century = 0;
-  uint8 last_second;
-  uint8 last_minute;
-  uint8 last_hour;
-  uint8 last_day;
-  uint8 last_month;
-  uint8 last_year;
-  uint8 last_century;
-  uint8 registerB;
+  uint8_t century = 0;
+  uint8_t last_second;
+  uint8_t last_minute;
+  uint8_t last_hour;
+  uint8_t last_day;
+  uint8_t last_month;
+  uint8_t last_year;
+  uint8_t last_century;
+  uint8_t registerB;
 
   while (get_update_in_progress_flag())
     ;

@@ -29,14 +29,14 @@ enum vga_color {
 /**
  * Get a color from foreground to background
  */
-static inline uint8 vga_entry_color(enum vga_color fg, enum vga_color bg) {
+static inline uint8_t vga_entry_color(enum vga_color fg, enum vga_color bg) {
   return (bg << 4) | (fg & 0x0F);
 }
 
 /**
  * Get an entry from a color and a character 
  */
-static inline uint16 vga_entry(unsigned char c, uint8 color) {
+static inline uint16_t vga_entry(unsigned char c, uint8_t color) {
   return c | color << 8;
 }
 
@@ -53,7 +53,7 @@ void vga_put(const char c);
 /**
  * Put character with color in next spot
  */
-void vga_put_color(const char c, uint8 color);
+void vga_put_color(const char c, uint8_t color);
 
 /**
  * Write a string to vga
@@ -63,37 +63,37 @@ void vga_write(const char *c);
 /**
  * Write a string with color to vga
  */
-void vga_write_color(const char *c, uint8 color);
+void vga_write_color(const char *c, uint8_t color);
 
 /**
  * Put an int in hex to next spot
  */
-void vga_put_hex(uint32 n);
+void vga_put_hex(uint32_t n);
 
 /**
  * Put an int in hex with color to next spot
  */
-void vga_put_hex_color(uint32 n, uint8 color);
+void vga_put_hex_color(uint32_t n, uint8_t color);
 
 /**
  * Put a decimal to next spot
  */
-void vga_put_dec(uint32 n);
+void vga_put_dec(uint32_t n);
 
 /**
  * Put a decimal with color to next spot
  */
-void vga_put_dec_color(uint32 n, uint8 color);
+void vga_put_dec_color(uint32_t n, uint8_t color);
 
 /**
  * Put a character at specified spot
  */
-void vga_put_at(const char c, uint8 x, uint8 y);
+void vga_put_at(const char c, uint8_t x, uint8_t y);
 
 /**
  * Put a character with color at specified spot
  */
-void vga_put_at_color(const char c, uint8 x, uint8 y, uint8 color);
+void vga_put_at_color(const char c, uint8_t x, uint8_t y, uint8_t color);
 
 /**
  * Printf to vga

@@ -1,9 +1,10 @@
+#include <stdbool.h>
 #include <io.h>
 #include <isr.h>
 #include <keyboard.h>
 #include <vga.h>
 
-uint8 kbdus[128] = {
+uint8_t kbdus[128] = {
                     0, /* None */
                     0, /* Esc  */
                     '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
@@ -41,7 +42,7 @@ uint8 kbdus[128] = {
                     0, /* F12 */
 };
 
-uint8 kbdus_shift[128] = {
+uint8_t kbdus_shift[128] = {
                     0, /* None */
                     0, /* Esc  */
                     '!', '@', '#', '$', '%', '^', '&', '*', '(', ')',
@@ -90,9 +91,9 @@ bool right_shift = false;
 bool right_ctrl = false;
 bool right_alt = false;
 
-uint8 prev_scancode = 0;
+uint8_t prev_scancode = 0;
 
-static uint32 build_keycode(uint8 scancode) {
+static uint32_t build_keycode(uint8_t scancode) {
   /*
    * bits 0-8  - ASCII value
    * bits 8-15 - scancode
@@ -109,10 +110,10 @@ static uint32 build_keycode(uint8 scancode) {
    * bit 26 - key released
    * bits 27-31 - unused
    */
-  uint32 keycode = 0; 
+  uint32_t keycode = 0; 
 
   /* Change case */
-  uint8 ascii = kbdus[scancode];
+  uint8_t ascii = kbdus[scancode];
   if (left_shift) {
     ascii = kbdus_shift[scancode];
   }
@@ -135,7 +136,7 @@ static uint32 build_keycode(uint8 scancode) {
 }
 
 
-void handle_modifiers(uint8 scancode) {
+void handle_modifiers(uint8_t scancode) {
   switch (scancode) {
   case 0x46: /* Scroll lock pressed */
     scroll_lock = !scroll_lock;
@@ -170,9 +171,9 @@ void handle_modifiers(uint8 scancode) {
 /* Can take registers_t regs as parameter */
 /* TODO right side */
 static void keyboard_handler() {
-  uint8 scancode = inb(0x60);
+  uint8_t scancode = inb(0x60);
 
-  uint32 keycode = build_keycode(scancode);
+  uint32_t keycode = build_keycode(scancode);
 
   handle_modifiers(scancode);
 

@@ -7,8 +7,8 @@
 
 #include <kernel.h>
 
-void memset(uint8 *dest, uint8 val, uint32 len);
-void memcpy(uint8 *dest, const uint8 *src, uint32 len);
+void memset(uint8_t *dest, uint8_t val, uint32_t len);
+void memcpy(uint8_t *dest, const uint8_t *src, uint32_t len);
 void print_mem_values();
 
 extern char base[];  /* Start of memory */

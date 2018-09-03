@@ -5,11 +5,11 @@
  * Entry in IDT array
  */
 struct idt_entry {
-  uint16 base_low;  // Lower 16 bits of address to jump to
-  uint16 sel;       // Kernel segment selector
-  uint8 always0;    // Must always be 0
-  uint8 flags;      // More flags
-  uint16 base_high; // Upper 16 bits of address to jump to
+  uint16_t base_low;  // Lower 16 bits of address to jump to
+  uint16_t sel;       // Kernel segment selector
+  uint8_t always0;    // Must always be 0
+  uint8_t flags;      // More flags
+  uint16_t base_high; // Upper 16 bits of address to jump to
 } __attribute__((packed));
 typedef struct idt_entry idt_entry_t;
 
@@ -17,8 +17,8 @@ typedef struct idt_entry idt_entry_t;
  * Struct holding length and pointer to first entry in IDT
  */
 struct idt_ptr {
-  uint16 limit; // Length of IDT in bytes - 1
-  uint32 base;  // Address of first element in idt_entry array
+  uint16_t limit; // Length of IDT in bytes - 1
+  uint32_t base;  // Address of first element in idt_entry array
 } __attribute__((packed));
 typedef struct idt_ptr idt_ptr_t;
 
@@ -32,10 +32,10 @@ idt_entry_t idt_entries[256];
  */
 idt_ptr_t idt_ptr;
 
-extern void idt_flush(uint32);
+extern void idt_flush(uint32_t);
 
 static void init_idt();
-static void idt_set_gate(uint8, uint32, uint16, uint8);
+static void idt_set_gate(uint8_t, uint32_t, uint16_t, uint8_t);
 
 extern void isr0();
 extern void isr1();

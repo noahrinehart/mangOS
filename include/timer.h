@@ -8,7 +8,7 @@
 /**
  * Current tick of clock
  */
-extern uint32 clktick;
+extern uint32_t clktick;
 
 /**
  * Initialize timer

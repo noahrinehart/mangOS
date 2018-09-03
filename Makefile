@@ -13,12 +13,12 @@ KERNEL   = $(BUILDDIR)/mangOS.elf
 ISO 		 = $(BUILDDIR)/mangOS.iso
 GRUB_CFG = $(SOURCEDIR)/grub.cfg
 
-CC = clang
-LD = ld.lld
+CC = $(HOME)/bin/cross/bin/i686-elf-gcc
+LD = $(HOME)/bin/cross/bin/i686-elf-gcc
 AS = nasm
 
-CFLAGS  = -I ./include -ffreestanding -fno-builtin -nostdlib -nostdinc --target=i686-pc-none-elf -march=i686 -m32 -Wall -Wextra -g
-LDFLAGS = -T src/link.ld
+CFLAGS  = -I ./include -ffreestanding -O2 -Wall -Wextra -g
+LDFLAGS = -T src/link.ld -ffreestanding -O2 -nostdlib -lgcc
 ASFLAGS = -f elf32
 
 .PHONY: all clean run debug format tidy
