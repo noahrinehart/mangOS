@@ -1,5 +1,6 @@
+#include <gdt.h>
+#include <idt.h>
 #include <cmos.h>
-#include <descriptors.h>
 #include <kernel.h>
 #include <keyboard.h>
 #include <mem.h>
@@ -7,14 +8,19 @@
 #include <timer.h>
 #include <vga.h>
 
-void kmain() {
-  init_descriptors();
+void kmain(const uint32_t eax, const uint32_t ebx) {
+  init_gdt();
+  init_idt();
   init_keyboard();
   init_timer();
 
   ENABLE_INT();
-  
+
   read_rtc();
+
+  vga_clear();
+
+  check_multiboot(eax, ebx);
 
   vga_printf("                              ___  ____  \n");
   vga_printf(" _ __ ___   __ _ _ __   __ _ / _ \\/ ___| \n");

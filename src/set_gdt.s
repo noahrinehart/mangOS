@@ -1,6 +1,6 @@
-global gdt_flush
+global set_gdt
 
-gdt_flush:
+set_gdt:
   mov eax, [esp+4]
   lgdt [eax]
 

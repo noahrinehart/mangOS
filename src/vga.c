@@ -102,7 +102,6 @@ void vga_put_hex(uint32_t n) {
 
 void vga_put_hex_color(uint32_t n, uint8_t color) {
   int32_t tmp;
-  vga_write_color("0x", color);
   char noZeroes = 1;
 
   int i;

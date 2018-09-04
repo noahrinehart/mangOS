@@ -1,6 +1,6 @@
-global idt_flush
+global set_idt
 
-idt_flush:
+set_idt:
   mov eax, [esp+4]
   lidt [eax]
   ret

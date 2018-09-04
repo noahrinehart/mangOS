@@ -415,4 +415,7 @@ struct multiboot_tag_load_base_addr
 };
 
 #endif /*  ! ASM_FILE */
+
+void check_multiboot();
+
 #endif /*  ! MULTIBOOT_HEADER */

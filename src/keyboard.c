@@ -184,4 +184,6 @@ static void keyboard_handler() {
   }
 }
 
-void init_keyboard() { register_interrupt_handler(IRQ1, &keyboard_handler); }
+void init_keyboard() { 
+  register_interrupt_handler(IRQ1, &keyboard_handler);
+}
