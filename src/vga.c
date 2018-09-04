@@ -7,10 +7,10 @@ uint8_t cursor_x = 0;
 uint8_t cursor_y = 0;
 
 static void move_cursor() {
-  uint16_t cursor_location = cursor_y * 80 + cursor_x;
-  outb(0x3D4, 14);                   // Tell vga setting high cursor byte
+  uint16_t cursor_location = cursor_y * VGA_WIDTH + cursor_x;
+  outb(0x3D4, 0xE);                  // Tell vga setting high cursor byte
   outb(0x3D5, cursor_location >> 8); // Send high cursor byte
-  outb(0x3D4, 15);                   // Tell vga setting low cursor byte
+  outb(0x3D4, 0xF);                  // Tell vga setting low cursor byte
   outb(0x3D5, cursor_location);      // Send low cursor byte
 }
 
@@ -18,24 +18,24 @@ static void scroll() {
   uint16_t blank =
       vga_entry(' ', vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK));
 
-  if (cursor_y >= 25) {
+  if (cursor_y >= VGA_HEIGHT) {
     int i;
-    for (i = 0 * 80; i < 24 * 80; i++) {
-      vga_memory[i] = vga_memory[i + 80];
+    for (i = 0 * VGA_WIDTH; i < 24 * VGA_WIDTH; i++) {
+      vga_memory[i] = vga_memory[i + VGA_WIDTH];
     }
-    for (i = 24 * 80; i < 25 * 80; i++) {
+    for (i = 24 * VGA_WIDTH; i < VGA_HEIGHT * VGA_WIDTH; i++) {
       vga_memory[i] = blank;
     }
     cursor_y = 24;
   }
 }
 
-void vga_clear() {
+void vga_clear(void) {
   uint16_t blank =
       vga_entry(' ', vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK));
 
   int i;
-  for (i = 0; i < 80 * 25; i++) {
+  for (i = 0; i < VGA_WIDTH * VGA_HEIGHT; i++) {
     vga_memory[i] = blank;
   }
 
@@ -71,11 +71,11 @@ void vga_put_color(const char c, uint8_t color) {
   }
   // All other chars
   else if (c >= ' ') {
-    location = vga_memory + (cursor_y * 80 + cursor_x);
+    location = vga_memory + (cursor_y * VGA_WIDTH + cursor_x);
     *location = vga_entry(c, color);
     cursor_x++;
   }
-  if (cursor_x >= 80) {
+  if (cursor_x >= VGA_WIDTH) {
     cursor_x = 0;
     cursor_y++;
   }

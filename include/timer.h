@@ -13,6 +13,6 @@ extern uint32_t clktick;
 /**
  * Initialize timer
  */
-void init_timer();
+void init_timer(void);
 
 #endif // TIMER_H

@@ -12,7 +12,7 @@ static uint8_t get_RTC_register(int reg) {
   return inb(cmos_data);
 }
 
-void read_rtc() {
+void read_rtc(void) {
   uint8_t century = 0;
   uint8_t last_second;
   uint8_t last_minute;

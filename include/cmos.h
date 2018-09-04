@@ -18,6 +18,9 @@ enum {
   cmos_data = 0x71,
 };
 
-void read_rtc();
+/**
+ * Read real time clock
+ */
+void read_rtc(void);
 
 #endif // CMOS_H

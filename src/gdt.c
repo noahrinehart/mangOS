@@ -1,6 +1,7 @@
 #include <gdt.h>
 
-static void create_descriptor(int32_t num, uint32_t base, uint32_t limit, uint8_t access, uint8_t gran) {
+static void create_descriptor(int32_t num, uint32_t base, uint32_t limit,
+                              uint8_t access, uint8_t gran) {
   gdt_entries[num].base_low = (base & 0xFFFF);
   gdt_entries[num].base_middle = (base >> 16) & 0xFF;
   gdt_entries[num].base_high = (base >> 24) & 0xFF;
@@ -12,7 +13,7 @@ static void create_descriptor(int32_t num, uint32_t base, uint32_t limit, uint8_
   gdt_entries[num].access = access;
 }
 
-void init_gdt() {
+void init_gdt(void) {
   gdt_ptr.limit = (sizeof(gdt_entry_t) * 5) - 1;
   gdt_ptr.base = (uint32_t)&gdt_entries;
 

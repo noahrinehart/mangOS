@@ -1,85 +1,72 @@
-#include <stdbool.h>
 #include <io.h>
 #include <isr.h>
 #include <keyboard.h>
+#include <stdbool.h>
 #include <vga.h>
 
 uint8_t kbdus[128] = {
-                    0, /* None */
-                    0, /* Esc  */
-                    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-                    '-', '=', '\b', '\t', 'q', 'w', 'e', 'r', 't', 'y',
-                    'u', 'i', 'o', 'p', '[', ']', '\n',
-                    0, /* Left control */
-                    'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l',
-                    ';', '\'', '`',
-                    0, /* Left Shift */
-                    '\\', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',',
-                    '.', '/',
-                    0, /* Right Shift */
-                    '*',
-                    0, /* Left alt */
-                    ' ',
-                    0, /* CapsLock */
-                    0, /* F1 */
-                    0, /* F2 */
-                    0, /* F3 */
-                    0, /* F4 */
-                    0, /* F5 */
-                    0, /* F6 */
-                    0, /* F7 */
-                    0, /* F8 */
-                    0, /* F9 */
-                    0, /* F10 */
-                    0, /* NumLock */
-                    0, /* ScrollLock */
-                    '7', '8', '9', '-', '4', '5', '6', '+',
-                    '1', '2', '3', '0', '.',
-                    0, /* None */
-                    0, /* None */
-                    0, /* None */
-                    0, /* F11 */
-                    0, /* F12 */
+    0, /* None */
+    0, /* Esc  */
+    '1',  '2', '3',  '4',  '5', '6', '7',  '8', '9', '0',
+    '-',  '=', '\b', '\t', 'q', 'w', 'e',  'r', 't', 'y',
+    'u',  'i', 'o',  'p',  '[', ']', '\n', 0, /* Left control */
+    'a',  's', 'd',  'f',  'g', 'h', 'j',  'k', 'l', ';',
+    '\'', '`', 0, /* Left Shift */
+    '\\', 'z', 'x',  'c',  'v', 'b', 'n',  'm', ',', '.',
+    '/',  0, /* Right Shift */
+    '*',  0, /* Left alt */
+    ' ',  0, /* CapsLock */
+    0,       /* F1 */
+    0,       /* F2 */
+    0,       /* F3 */
+    0,       /* F4 */
+    0,       /* F5 */
+    0,       /* F6 */
+    0,       /* F7 */
+    0,       /* F8 */
+    0,       /* F9 */
+    0,       /* F10 */
+    0,       /* NumLock */
+    0,       /* ScrollLock */
+    '7',  '8', '9',  '-',  '4', '5', '6',  '+', '1', '2',
+    '3',  '0', '.',  0, /* None */
+    0,                  /* None */
+    0,                  /* None */
+    0,                  /* F11 */
+    0,                  /* F12 */
 };
 
 uint8_t kbdus_shift[128] = {
-                    0, /* None */
-                    0, /* Esc  */
-                    '!', '@', '#', '$', '%', '^', '&', '*', '(', ')',
-                    '_', '+', '\b', '\t', 'Q', 'W', 'E', 'R', 'T', 'Y',
-                    'U', 'I', 'O', 'P', '{', '}', '\n',
-                    0, /* Left control */
-                    'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
-                    ':', '"', '~',
-                    0, /* Left Shift */
-                    '|', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<',
-                    '>',  '?',
-                    0, /* Right Shift */
-                    '*',
-                    0, /* Left alt */
-                    ' ',
-                    0, /* CapsLock */
-                    0, /* F1 */
-                    0, /* F2 */
-                    0, /* F3 */
-                    0, /* F4 */
-                    0, /* F5 */
-                    0, /* F6 */
-                    0, /* F7 */
-                    0, /* F8 */
-                    0, /* F9 */
-                    0, /* F10 */
-                    0, /* NumLock */
-                    0, /* ScrollLock */
-                    '7', '8', '9', '-', '4', '5', '6', '+',
-                    '1', '2', '3', '0', '.',
-                    0, /* None */
-                    0, /* None */
-                    0, /* None */
-                    0, /* F11 */
-                    0, /* F12 */
+    0, /* None */
+    0, /* Esc  */
+    '!', '@', '#',  '$',  '%', '^', '&',  '*', '(', ')',
+    '_', '+', '\b', '\t', 'Q', 'W', 'E',  'R', 'T', 'Y',
+    'U', 'I', 'O',  'P',  '{', '}', '\n', 0, /* Left control */
+    'A', 'S', 'D',  'F',  'G', 'H', 'J',  'K', 'L', ':',
+    '"', '~', 0, /* Left Shift */
+    '|', 'Z', 'X',  'C',  'V', 'B', 'N',  'M', '<', '>',
+    '?', 0, /* Right Shift */
+    '*', 0, /* Left alt */
+    ' ', 0, /* CapsLock */
+    0,      /* F1 */
+    0,      /* F2 */
+    0,      /* F3 */
+    0,      /* F4 */
+    0,      /* F5 */
+    0,      /* F6 */
+    0,      /* F7 */
+    0,      /* F8 */
+    0,      /* F9 */
+    0,      /* F10 */
+    0,      /* NumLock */
+    0,      /* ScrollLock */
+    '7', '8', '9',  '-',  '4', '5', '6',  '+', '1', '2',
+    '3', '0', '.',  0, /* None */
+    0,                 /* None */
+    0,                 /* None */
+    0,                 /* F11 */
+    0,                 /* F12 */
 };
-
 
 bool scroll_lock = false;
 bool num_lock = false;
@@ -110,7 +97,7 @@ static uint32_t build_keycode(uint8_t scancode) {
    * bit 26 - key released
    * bits 27-31 - unused
    */
-  uint32_t keycode = 0; 
+  uint32_t keycode = 0;
 
   /* Change case */
   uint8_t ascii = kbdus[scancode];
@@ -129,12 +116,13 @@ static uint32_t build_keycode(uint8_t scancode) {
   keycode |= right_shift << 22;
   keycode |= right_ctrl << 23;
   keycode |= right_alt << 24;
-  if (prev_scancode == scancode) keycode |= 1 << 25;
-  if (scancode & 0x80) keycode |= 1 << 26;
+  if (prev_scancode == scancode)
+    keycode |= 1 << 25;
+  if (scancode & 0x80)
+    keycode |= 1 << 26;
 
   return keycode;
 }
-
 
 void handle_modifiers(uint8_t scancode) {
   switch (scancode) {
@@ -184,6 +172,6 @@ static void keyboard_handler() {
   }
 }
 
-void init_keyboard() { 
+void init_keyboard(void) {
   register_interrupt_handler(IRQ1, &keyboard_handler);
 }

@@ -37,7 +37,7 @@ idt_ptr_t idt_ptr;
  */
 extern void set_idt(uint32_t);
 
-void init_idt();
+void init_idt(void);
 
 extern void isr0();
 extern void isr1();

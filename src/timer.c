@@ -14,7 +14,7 @@ static void timer_callback() {
   }
 }
 
-void init_timer() {
+void init_timer(void) {
   register_interrupt_handler(IRQ0, &timer_callback);
 
   uint32_t divisor = 1193182 / CLOCK_FREQUENCY;

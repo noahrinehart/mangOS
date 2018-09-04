@@ -1,12 +1,19 @@
+#include <cmos.h>
 #include <gdt.h>
 #include <idt.h>
-#include <cmos.h>
 #include <kernel.h>
 #include <keyboard.h>
 #include <mem.h>
 #include <multiboot.h>
 #include <timer.h>
 #include <vga.h>
+
+const char *logo = "                              ___  ____  \n"
+                   " _ __ ___   __ _ _ __   __ _ / _ \\/ ___| \n"
+                   "| '_ ` _ \\ / _` | '_ \\ / _` | | | \\___ \\ \n"
+                   "| | | | | | (_| | | | | (_| | |_| |___) |\n"
+                   "|_| |_| |_|\\__,_|_| |_|\\__, |\\___/|____/ \n"
+                   "                       |___/             \n";
 
 void kmain(const uint32_t eax, const uint32_t ebx) {
   init_gdt();
@@ -22,12 +29,7 @@ void kmain(const uint32_t eax, const uint32_t ebx) {
 
   check_multiboot(eax, ebx);
 
-  vga_printf("                              ___  ____  \n");
-  vga_printf(" _ __ ___   __ _ _ __   __ _ / _ \\/ ___| \n");
-  vga_printf("| '_ ` _ \\ / _` | '_ \\ / _` | | | \\___ \\ \n");
-  vga_printf("| | | | | | (_| | | | | (_| | |_| |___) |\n");
-  vga_printf("|_| |_| |_|\\__,_|_| |_|\\__, |\\___/|____/ \n");
-  vga_printf("                       |___/             \n");
+  vga_printf(logo);
 
   vga_printf("\nCurrent time: %d/%d/%d\t%d:%d:%d\n\n", month, day, year, hour,
              minute, second);
