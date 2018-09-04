@@ -27,7 +27,7 @@ void kmain(const uint32_t eax, const uint32_t ebx) {
 
   vga_clear();
 
-  check_multiboot(eax, ebx);
+  // check_multiboot(eax, ebx);
 
   vga_printf(logo);
 

@@ -20,10 +20,10 @@ _start:
 .end:
 
 
-KERNEL_STACK_SIZE equ 16384
+KERNEL_STACK_SIZE equ 0x4000
 
 section .bss
-align 4
+align 32
 stack_bottom:
   resb KERNEL_STACK_SIZE
 stack_top:

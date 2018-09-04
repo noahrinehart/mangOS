@@ -35,6 +35,5 @@ SECTIONS
     ebss = ABSOLUTE(.);
     . = ALIGN(4096);
     end = ABSOLUTE(.);
-    . = ALIGN(4096);
   }
 }
