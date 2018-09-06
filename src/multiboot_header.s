@@ -1,17 +1,28 @@
-MBOOT_MAGIC_NUMBER  equ 0xe85250d6
-MBOOT_ARCH          equ 0
-MBOOT_LENGTH        equ multiboot_end - multiboot_start
-MBOOT_CHECKSUM      equ 0x100000000 - (MBOOT_MAGIC_NUMBER + MBOOT_LENGTH)
+MBOOT_ALIGN equ 1<<0
+MBOOT_MEMINFO equ 1<<1
+MBOOT_FLAGS equ MBOOT_ALIGN | MBOOT_MEMINFO
+MBOOT_MAGIC equ 0x1BADB002
+MBOOT_CHECKSUM equ -(MBOOT_MAGIC + MBOOT_FLAGS)
+
+;MBOOT_MAGIC_NUMBER  equ 0xe85250d6
+;MBOOT_ARCH          equ 0
+;MBOOT_LENGTH        equ multiboot_end - multiboot_start
+;MBOOT_CHECKSUM      equ 0x100000000 - (MBOOT_MAGIC_NUMBER + MBOOT_LENGTH)
 
 section .multiboot
 multiboot_start:
-  dd MBOOT_MAGIC_NUMBER
-  dd MBOOT_ARCH
-  dd MBOOT_LENGTH
-  dd MBOOT_CHECKSUM
+align 4
 
-  dw 0
-  dw 0
-  dd 8
+dd MBOOT_MAGIC
+dd MBOOT_FLAGS
+dd MBOOT_CHECKSUM
+;  dd MBOOT_MAGIC_NUMBER
+;  dd MBOOT_ARCH
+;  dd MBOOT_LENGTH
+;  dd MBOOT_CHECKSUM
+;
+;  dw 0
+;  dw 0
+;  dd 8
 multiboot_end:
 
