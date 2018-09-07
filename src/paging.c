@@ -1,8 +1,4 @@
-#include <stdint.h>
-
-
-extern void load_page_directory(uint32_t *);
-extern void enable_paging();
+#include <paging.h>
 
 void init_paging() {
     uint32_t page_directory[1024] __attribute((aligned(4096)));

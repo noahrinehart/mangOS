@@ -16,7 +16,9 @@ _start:
 
   call kmain            ; Start Kernel
   
-  jmp $
+.halt:
+  hlt
+  jmp .halt
 .end:
 
 

@@ -8,6 +8,7 @@
 #include <timer.h>
 #include <vga.h>
 
+
 const char *logo = "                              ___  ____  \n"
                    " _ __ ___   __ _ _ __   __ _ / _ \\/ ___| \n"
                    "| '_ ` _ \\ / _` | '_ \\ / _` | | | \\___ \\ \n"
@@ -22,7 +23,7 @@ void kmain(const uint32_t mboot_magic, void *mboot_info) {
   init_gdt();
   init_idt();
 
-//  init_paging();
+  init_paging();
   
   init_keyboard();
   init_timer();
