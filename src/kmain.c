@@ -22,7 +22,7 @@ void kmain(const uint32_t mboot_magic, void *mboot_info) {
   init_gdt();
   init_idt();
 
-  init_paging();
+//  init_paging();
   
   init_keyboard();
   init_timer();
