@@ -15,9 +15,9 @@ void memset(uint8_t *dest, uint8_t val, uint32_t len) {
 }
 
 void print_mem_values() {
-  vga_write("Start: ");
-  vga_put_hex((uint32_t)base);
-  vga_put('\n');
+  // vga_write("Start: ");
+  // vga_put_hex((uint32_t)base);
+  // vga_put('\n');
 
   vga_write("Start of text: ");
   vga_put_hex((uint32_t)text);

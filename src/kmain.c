@@ -18,26 +18,25 @@ const char *logo = "                              ___  ____  \n"
 extern void init_paging();
 
 void kmain(const uint32_t mboot_magic, void *mboot_info) {
-  
   init_gdt();
   init_idt();
 
-//  init_paging();
+//   init_paging();
   
   init_keyboard();
-  init_timer();
+//   init_timer();
 
   ENABLE_INT();
   
-  read_rtc();
+//   read_rtc();
 
-  vga_clear();
+  // vga_clear();
   
-  check_multiboot(mboot_magic, mboot_info);
+//   check_multiboot(mboot_magic, mboot_info);
 
   vga_printf(logo);
 
-  vga_printf("\nCurrent time: %d/%d/%d\t%d:%d:%d\n\n", month, day, year, hour,
-             minute, second);
+//   vga_printf("\nCurrent time: %d/%d/%d\t%d:%d:%d\n\n", month, day, year, hour,
+//              minute, second);
   print_mem_values();
 }

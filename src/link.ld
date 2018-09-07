@@ -2,38 +2,44 @@
  * Link.ld -- Linker script for the kernel
 */
 
-OUTPUT_ARCH(i386)
-ENTRY(_start)
-base = 0x100000;
+OUTPUT_FORMAT(elf32-i386)
+ENTRY(boot)
+phys_base = 0x100000;
+offset = 0xC0000000;
+virtual = phys_base + offset;
+
 SECTIONS
 {
-  . = base;
-  . = ALIGN(4096);
-  .text :
+  . = virtual;
+  .text : AT(ADDR(.text) - offset)
   {
-    text = ABSOLUTE(.);
+    text = .;
     KEEP(*(.multiboot))
     *(.text .text.*)
     *(.rodata .rodata.*) 
-    etext = ABSOLUTE(.);
-    . = ALIGN(4096);
+    etext = .;
   }
 
-  .data :
+  .data ALIGN(0x1000) : AT(ADDR(.data) - offset)
   {
-    data = ABSOLUTE(.);
+    data = .;
     *(.data .data.*)
-    edata = ABSOLUTE(.);
-    . = ALIGN(4096);
+    edata = .;
   }
 
-  .bss :
+  .bss ALIGN(0x1000) : AT(ADDR(.bss) - offset)
   {
-    bss = ABSOLUTE(.);
+    bss = .;
     *(COMMON)
     *(.bss .bss.*)
-    ebss = ABSOLUTE(.);
-    . = ALIGN(4096);
-    end = ABSOLUTE(.);
+    ebss = .;
+  }
+
+  end = .;
+
+  /DISCARD/ : {
+      *(.comment)
+      *(.eh_frame)
+      *(.note.gnu.build-id)
   }
 }

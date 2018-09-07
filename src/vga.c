@@ -1,7 +1,7 @@
 #include <io.h>
 #include <vga.h>
 
-uint16_t *vga_memory = (uint16_t *)0xB8000;
+uint16_t *vga_memory = (uint16_t *)0xC00B8000;
 
 uint8_t cursor_x = 0;
 uint8_t cursor_y = 0;
