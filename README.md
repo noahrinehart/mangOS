@@ -1,6 +1,6 @@
 # mangOS
 
-> A simple hobby OS
+> A simple hobby OS targeting x86
 
 #### How To Run
 ```bash
@@ -22,22 +22,23 @@ continue
 #### TODO
 - [x] Create starting point in 32 bit
 - [x] Basic segmentation
-- [x] Create basic GDT
+- [x] Create GDT
 - [x] Create basic IDT/IQR's
 - [x] Keyboard/timer support
 - [x] Multiboot info
 - [ ] Add basic paging
+    - [ ] Map kernel at higher half
 - [ ] Heap support
 - [ ] VFS/initrd
 - [ ] Multitasking
 - [ ] Userland
-- [x] Add checks for long mode
-- [ ] Enter long mode (64bit)
 
 
 
-#### Sources
+#### Resources
 * [https://wiki.osdev.org/Main_Page](https://wiki.osdev.org/Main_Page)
 * [http://www.jamesmolloy.co.uk/tutorial_html/](http://www.jamesmolloy.co.uk/tutorial_html/)
 * [http://www.osdever.net/bkerndev/Docs/title.htm](http://www.osdever.net/bkerndev/Docs/title.htm)
 * [https://littleosbook.github.io](https://littleosbook.github.io)
+* [http://www.brokenthorn.com/Resources/](http://www.brokenthorn.com/Resources/)
+* [http://www.osdever.net/tutorials/](http://www.osdever.net/tutorials/)
