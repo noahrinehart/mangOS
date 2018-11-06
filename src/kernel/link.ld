@@ -1,6 +1,6 @@
 /*
  * Link.ld -- Linker script for the kernel
-*/
+ */
 
 OUTPUT_ARCH(i386)
 ENTRY(_start)
@@ -35,6 +35,5 @@ SECTIONS
     ebss = ABSOLUTE(.);
     . = ALIGN(4096);
     end = ABSOLUTE(.);
-    . = ALIGN(4096);
   }
 }

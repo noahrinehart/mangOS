@@ -1,63 +1,73 @@
-SOURCEDIR  	=	src
-INCLUDEDIR 	=	include
-BUILDDIR 		=	build
+CC := clang
+AS := nasm
+LD := ld.lld
 
-S_SOURCES = $(wildcard $(SOURCEDIR)/*.s)
-C_SOURCES = $(wildcard $(SOURCEDIR)/*.c)
-H_SOURCES = $(wildcard $(INCLUDEDIR)/*.h)
-S_OBJECTS = $(patsubst $(SOURCEDIR)/%.s,$(BUILDDIR)/%.o, $(S_SOURCES))
-C_OBJECTS = $(patsubst $(SOURCEDIR)/%.c, $(BUILDDIR)/%.o, $(C_SOURCES))
-OBJECTS   = $(S_OBJECTS) $(C_OBJECTS)
+QEMU := qemu-system-x86_64
 
-KERNEL   = $(BUILDDIR)/mangOS.elf
-ISO 		 = $(BUILDDIR)/mangOS.iso
-GRUB_CFG = $(SOURCEDIR)/grub.cfg
+SOURCE_DIR	:= src
+BUILD_DIR	:= build
+INCLUDE_DIR	:= include
+ISO_DIR		:= $(SOURCE_DIR)/iso
 
-CC = clang
-LD = ld.lld
-AS = nasm
+MODULES := device kernel libc
 
-CFLAGS  = -I ./include -ffreestanding -fno-builtin -nostdlib -nostdinc --target=i686-pc-none-elf -march=i686 -m32 -Wall -Wextra -g
-LDFLAGS = -T src/link.ld
-ASFLAGS = -f elf32
+SOURCE_MOD 	:= $(addprefix $(SOURCE_DIR)/,$(MODULES))
+INCLUDE_MOD	:= $(addprefix $(BUILD_DIR)/,$(MODULES))
+BUILD_MOD	:= $(addprefix $(BUILD_DIR)/,$(MODULES))
 
-.PHONY: all clean run debug format tidy
+SOURCE_C	:= $(foreach sdir,$(SOURCE_MOD),$(wildcard $(sdir)/*.c))
+SOURCE_S	:= $(foreach sdir,$(SOURCE_MOD),$(wildcard $(sdir)/*.s))
+SOURCE_H	:= $(foreach sdir,$(SOURCE_MOD),$(wildcard $(sdir)/*.h))
+OBJECT_C	:= $(patsubst $(SOURCE_DIR)/%.c,$(BUILD_DIR)/%.o,$(SOURCE_C))
+OBJECT_S	:= $(patsubst $(SOURCE_DIR)/%.s,$(BUILD_DIR)/%.o,$(SOURCE_S))
+OBJECTS		:= $(OBJECT_C) $(OBJECT_S)
+INCLUDES	:= $(addprefix, -I,$(INCLUDE_DIR))
+
+LINK_SCRIPT	:= $(SOURCE_DIR)/kernel/link.ld
+
+CFLAGS	:= $(INCLUDES) -m32 -ffreestanding -nostdlib -nostdinc -fno-builtin \
+         	-Wall -Wextra -Werror --target=i686-pc-none-elf -march=i686
+LDFLAGS	:= -T $(LINK_SCRIPT)
+ASFLAGS	:= -f elf32
+
+KERNEL	:= $(BUILD_DIR)/mangOS.elf
+ISO		:= $(BUILD_DIR)/mangOS.iso
+
+.PHONY: all run clean
 .SUFFIXES: .o .s. c
 
 all: $(KERNEL)
 
-clean:
-	rm -rf $(BUILDDIR)
-
-$(KERNEL): $(BUILDDIR) $(OBJECTS)
+$(KERNEL): $(BUILD_MOD) $(OBJECTS)
 	$(LD) $(LDFLAGS) -o $(KERNEL) $(OBJECTS)
 
-$(BUILDDIR):
-	mkdir -p build
+$(BUILD_MOD):
+	mkdir -p $@
 
-$(BUILDDIR)/%.o: $(SOURCEDIR)/%.s
-	$(AS) $(ASFLAGS) $< -o $@
-
-$(BUILDDIR)/%.o: $(SOURCEDIR)/%.c $(H_SOURCES)
+$(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.c $(SOURCE_H)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-run: $(ISO)
-	qemu-system-x86_64 -cdrom $(ISO)
+$(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.s
+	$(AS) $(ASFLAGS) $< -o $@
 
+run: $(ISO)
+	$(QEMU) -cdrom $<
 
 $(ISO): $(KERNEL)
-	mkdir -p $(BUILDDIR)/isofiles/boot/grub
-	cp $(KERNEL) $(BUILDDIR)/isofiles/boot/kernel.bin
-	cp $(GRUB_CFG) $(BUILDDIR)/isofiles/boot/grub
-	grub-mkrescue -o $(ISO) $(BUILDDIR)/isofiles 2> /dev/null
+	mkdir -p $(BUILD_DIR)/iso/boot/grub
+	cp $(ISO_DIR)/stage2_eltorito $(BUILD_DIR)/iso/boot/grub
+	cp $(KERNEL) $(BUILD_DIR)/iso/boot/
+	cp $(ISO_DIR)/menu.lst $(BUILD_DIR)/iso/boot/grub
+	mkisofs -R							\
+          -b boot/grub/stage2_eltorito	\
+          -no-emul-boot					\
+          -boot-load-size 4				\
+          -A os							\
+          -input-charset utf8			\
+          -quiet						\
+          -boot-info-table				\
+          -o $(ISO)						\
+          $(BUILD_DIR)/iso
 
-debug: $(ISO)
-	@echo "Run gdb in this directory"
-	qemu-system-x86_64 -cdrom $(ISO) -S -s
-
-format:
-	clang-format -i $(C_SOURCES)
-	clang-format -i $(H_SOURCES)
-
-tidy:
-	clang-tidy $(C_SOURCES) -- $(CFLAGS)
+clean:
+	rm -rf build
