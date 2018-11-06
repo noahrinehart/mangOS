@@ -23,7 +23,6 @@ _start:
   mov word [0x000B8008], 0x284F               ; O
   mov word [0x000B800A], 0x2821               ; !
 
-  
 .halt:
   hlt
   jmp .halt

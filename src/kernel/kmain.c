@@ -1,5 +1,5 @@
+#include <types.h>
 
-int kmain() {
-    int i = 5;
-    return i;
+int kmain(uint32_t multiboot_magic, uint32_t multiboot_info) {
+    return multiboot_magic;
 }

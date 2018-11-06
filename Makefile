@@ -21,12 +21,11 @@ SOURCE_H	:= $(foreach sdir,$(SOURCE_MOD),$(wildcard $(sdir)/*.h))
 OBJECT_C	:= $(patsubst $(SOURCE_DIR)/%.c,$(BUILD_DIR)/%.o,$(SOURCE_C))
 OBJECT_S	:= $(patsubst $(SOURCE_DIR)/%.s,$(BUILD_DIR)/%.o,$(SOURCE_S))
 OBJECTS		:= $(OBJECT_C) $(OBJECT_S)
-INCLUDES	:= $(addprefix, -I,$(INCLUDE_DIR))
 
 LINK_SCRIPT	:= $(SOURCE_DIR)/kernel/link.ld
 
-CFLAGS	:= $(INCLUDES) -m32 -ffreestanding -nostdlib -nostdinc -fno-builtin \
-         	-Wall -Wextra -Werror --target=i686-pc-none-elf -march=i686
+CFLAGS	:= -Iinclude -Iinclude/common -m32 -ffreestanding -nostdlib -nostdinc -fno-builtin \
+         	-Wall -Wextra --target=i686-pc-none-elf -march=i686
 LDFLAGS	:= -T $(LINK_SCRIPT)
 ASFLAGS	:= -f elf32
 
