@@ -1,7 +1,8 @@
 #ifndef IO_H
 #define IO_H
 
-#include <kernel.h>
+#include <types.h>
+#include <kernel/kernel.h>
 
 /**
  * Read a byte from the specified port

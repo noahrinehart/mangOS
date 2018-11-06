@@ -5,7 +5,7 @@
 #ifndef KERNEL_H
 #define KERNEL_H
 
-#include <stdint.h>
+#include <types.h>
 
 #define DISABLE_INT() asm volatile("cli")
 #define ENABLE_INT() asm volatile("sti")

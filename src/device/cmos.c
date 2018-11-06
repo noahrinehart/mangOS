@@ -1,4 +1,5 @@
-#include <cmos.h>
+#include <types.h>
+#include <device/cmos.h>
 
 static uint32_t century_register = 0x00;
 

@@ -1,7 +1,8 @@
 #ifndef ISR_H
 #define ISR_H
 
-#include <kernel.h>
+#include <types.h>
+#include <kernel/kernel.h>
 
 #define IRQ0 32
 #define IRQ1 33

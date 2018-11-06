@@ -1,5 +1,5 @@
-#include <io.h>
-#include <pic.h>
+#include <device/io.h>
+#include <device/pic.h>
 
 void pic_init(void) {
   unsigned char a1, a2;

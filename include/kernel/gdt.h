@@ -1,7 +1,7 @@
 #ifndef GDT_H
 #define GDT_H
 
-#include <stdint.h>
+#include <types.h>
 
 /**
  * Contains the value of one GDT entry

@@ -1,4 +1,5 @@
-#include <io.h>
+#include <types.h>
+#include <device/io.h>
 
 uint8_t inb(uint16_t port) {
   uint8_t ret;

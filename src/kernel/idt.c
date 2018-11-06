@@ -1,7 +1,8 @@
-#include <idt.h>
-#include <io.h>
-#include <mem.h>
-#include <pic.h>
+#include <types.h>
+#include <kernel/idt.h>
+#include <device/io.h>
+#include <libc/mem.h>
+#include <device/pic.h>
 
 static void idt_set_gate(uint8_t num, uint32_t base, uint16_t sel,
                          uint8_t flags) {

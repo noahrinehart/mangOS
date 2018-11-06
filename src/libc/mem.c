@@ -1,5 +1,5 @@
-#include <mem.h>
-#include <vga.h>
+#include <libc/mem.h>
+#include <device/vga.h>
 
 void memcpy(uint8_t *dest, const uint8_t *src, uint32_t len) {
   const uint8_t *sp = (const uint8_t *)src;

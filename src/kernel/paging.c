@@ -1,5 +1,4 @@
-#include <paging.h>
-#include <stdint.h>
+#include <kernel/paging.h>
 
 extern uint32_t read_cr0(void);
 extern void write_cr0(uint32_t);

@@ -1,6 +1,5 @@
-#include <multiboot.h>
-#include <stddef.h>
-#include <vga.h>
+#include <kernel/multiboot.h>
+#include <device/vga.h>
 
 #define CHECK_FLAG(flags, bit) ((flags) & (1 << (bit)))
 

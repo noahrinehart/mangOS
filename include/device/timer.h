@@ -1,7 +1,8 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-#include <kernel.h>
+#include <types.h>
+#include <kernel/kernel.h>
 
 #define CLOCK_FREQUENCY 1000
 

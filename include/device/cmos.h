@@ -1,8 +1,9 @@
 #ifndef CMOS_H
 #define CMOS_H
 
-#include <io.h>
-#include <kernel.h>
+#include <types.h>
+#include <device/io.h>
+#include <kernel/kernel.h>
 
 #define CURRENT_YEAR 2018
 

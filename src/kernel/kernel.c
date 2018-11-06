@@ -1,6 +1,5 @@
-
-#include <kernel.h>
-#include <vga.h>
+#include <kernel/kernel.h>
+#include <device/vga.h>
 
 void panic(const char *message, const char *file, uint32_t line) {
   asm volatile("cli"); // Disable interrupts

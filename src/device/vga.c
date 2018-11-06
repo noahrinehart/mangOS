@@ -1,5 +1,6 @@
-#include <io.h>
-#include <vga.h>
+#include <types.h>
+#include <device/io.h>
+#include <device/vga.h>
 
 uint16_t *vga_memory = (uint16_t *)0xB8000;
 

@@ -5,7 +5,7 @@
 #ifndef STRING_H
 #define STRING_H
 
-#include <kernel.h>
+#include <kernel/kernel.h>
 
 /**
  * Compare two strings

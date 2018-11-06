@@ -1,12 +1,12 @@
-#include <cmos.h>
-#include <gdt.h>
-#include <idt.h>
-#include <kernel.h>
-#include <keyboard.h>
-#include <mem.h>
-#include <multiboot.h>
-#include <timer.h>
-#include <vga.h>
+#include <device/cmos.h>
+#include <kernel/gdt.h>
+#include <kernel/idt.h>
+#include <kernel/kernel.h>
+#include <device/keyboard.h>
+#include <libc/mem.h>
+#include <kernel/multiboot.h>
+#include <device/timer.h>
+#include <device/vga.h>
 
 const char *logo = "                              ___  ____  \n"
                    " _ __ ___   __ _ _ __   __ _ / _ \\/ ___| \n"

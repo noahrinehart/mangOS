@@ -1,8 +1,7 @@
-#include <io.h>
-#include <isr.h>
-#include <keyboard.h>
-#include <stdbool.h>
-#include <vga.h>
+#include <device/keyboard.h>
+#include <device/io.h>
+#include <kernel/isr.h>
+#include <device/vga.h>
 
 uint8_t kbdus[128] = {
     0, /* None */

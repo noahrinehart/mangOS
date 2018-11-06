@@ -4,3 +4,5 @@ GRTAGS
 GTAGS
 \#*\#
 .\#*
+.DS_Store
+stage2_eltorito

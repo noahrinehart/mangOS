@@ -1,4 +1,4 @@
-#include <string.h>
+#include <libc/string.h>
 
 int strcmp(char *str1, char *str2) {
   int i = 0;

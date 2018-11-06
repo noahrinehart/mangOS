@@ -1,7 +1,8 @@
-#include <io.h>
-#include <isr.h>
-#include <timer.h>
-#include <vga.h>
+#include <types.h>
+#include <device/io.h>
+#include <kernel/isr.h>
+#include <device/timer.h>
+#include <device/vga.h>
 
 uint32_t clktick = 0;
 
