@@ -1,5 +1,32 @@
 #include <types.h>
+#include <kernel/gdt.h>
+#include <kernel/idt.h>
+#include <device/vga.h>
+#include <device/keyboard.h>
+#include <kernel/interrupts.h>
+#include <device/timer.h>
 
-int kmain(uint32_t multiboot_magic, uint32_t multiboot_info) {
-    return multiboot_magic;
+
+const char *logo = "                              ___  ____  \n"
+                   " _ __ ___   __ _ _ __   __ _ / _ \\/ ___| \n"
+                   "| '_ ` _ \\ / _` | '_ \\ / _` | | | \\___ \\ \n"
+                   "| | | | | | (_| | | | | (_| | |_| |___) |\n"
+                   "|_| |_| |_|\\__,_|_| |_|\\__, |\\___/|____/ \n"
+                   "                       |___/             \n";
+
+int kmain() {
+
+  init_gdt();
+  init_idt();
+
+  init_keyboard();
+  init_timer();
+
+
+  vga_clear();
+  vga_puts(logo);
+
+  ENABLE_INT();
+
+  return 0;
 }

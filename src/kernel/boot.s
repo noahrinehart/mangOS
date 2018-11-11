@@ -59,17 +59,17 @@ higher_half_loader:
 	; add ebx, KERNEL_VIRTUAL_BASE
 	; push ebx
 
-  ; push ebx              ; Load multiboot info
-  ; push eax              ; Load multiboot magic
+  push ebx              ; Load multiboot info
+  push eax              ; Load multiboot magic
   
-  ; call kmain            ; Start Kernel
+	call kmain            ; Start Kernel
 
-  mov word [0xC00B8000], 0x2848               ; H
-  mov word [0xC00B8002], 0x2845               ; E
-  mov word [0xC00B8004], 0x284C               ; L
-  mov word [0xC00B8006], 0x284C               ; L
-  mov word [0xC00B8008], 0x284F               ; O
-  mov word [0xC00B800A], 0x2821               ; !
+;	mov word [0xC00B8000], 0x2848               ; H
+;	mov word [0xC00B8002], 0x2845               ; E
+;	mov word [0xC00B8004], 0x284C               ; L
+;	mov word [0xC00B8006], 0x284C               ; L
+;	mov word [0xC00B8008], 0x284F               ; O
+;	mov word [0xC00B800A], 0x2821               ; !
 
 .halt:
   hlt

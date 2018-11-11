@@ -38,16 +38,19 @@ ISO		:= $(BUILD_DIR)/mangOS.iso
 all: $(KERNEL)
 
 $(KERNEL): $(BUILD_MOD) $(OBJECTS)
-	$(LD) $(LDFLAGS) -o $(KERNEL) $(OBJECTS)
+	@$(LD) $(LDFLAGS) -o $(KERNEL) $(OBJECTS)
+	@echo "[LD] $(KERNEL)"
 
 $(BUILD_MOD):
-	mkdir -p $@
+	@mkdir -p $@
 
 $(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.c $(SOURCE_H)
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo "[CC] $@"
 
 $(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.s
-	$(AS) $(ASFLAGS) $< -o $@
+	@$(AS) $(ASFLAGS) $< -o $@
+	@echo "[AS] $@"
 
 run: $(ISO)
 	$(QEMU) -cdrom $<
