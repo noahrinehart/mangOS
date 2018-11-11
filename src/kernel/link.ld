@@ -2,38 +2,48 @@
  * Link.ld -- Linker script for the kernel
  */
 
-OUTPUT_ARCH(i386)
-ENTRY(_start)
-base = 0x100000;
+ENTRY(start)
+
+base = 0xC0100000;
+
 SECTIONS
 {
   . = base;
-  . = ALIGN(4096);
-  .text :
+
+  kernel_virtual_start = .;
+  kernel_physical_start = . - 0xC0000000;
+
+  /* Align at 4KB (conveniently the size of a page) */
+  .text ALIGN (0x1000) : AT(ADDR(.text)-0xC0000000)
   {
     text = ABSOLUTE(.);
     KEEP(*(.multiboot))
-    *(.text .text.*)
-    *(.rodata .rodata.*) 
+    *(.text .text.*) /* text sections from all files in kernel */
     etext = ABSOLUTE(.);
-    . = ALIGN(4096);
   }
 
-  .data :
+  .rodata ALIGN (0x1000) : AT(ADDR(.rodata)-0xC0000000)
+  {
+    rodata = ABSOLUTE(.);   
+    *(.rodata .rodata.*) /* read-only data from all files in kernel */
+    erodata = ABSOLUTE(.);
+  }
+
+  .data ALIGN (0x1000) : AT(ADDR(.data)-0xC0000000)
   {
     data = ABSOLUTE(.);
     *(.data .data.*)
     edata = ABSOLUTE(.);
-    . = ALIGN(4096);
   }
 
-  .bss :
+  .bss ALIGN (0x1000) : AT(ADDR(.bss)-0xC0000000)
   {
     bss = ABSOLUTE(.);
     *(COMMON)
     *(.bss .bss.*)
     ebss = ABSOLUTE(.);
-    . = ALIGN(4096);
-    end = ABSOLUTE(.);
   }
+
+  kernel_virtual_end = .;
+  kernel_phsycial_end = . - 0xC0000000;
 }
