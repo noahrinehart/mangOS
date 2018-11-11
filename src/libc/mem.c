@@ -1,4 +1,5 @@
 #include <libc/mem.h>
+#include <device/vga.h>
 
 void memcpy(uint8_t *dest, const uint8_t *src, uint32_t len) {
   const uint8_t *sp = (const uint8_t *)src;
@@ -13,37 +14,54 @@ void memset(uint8_t *dest, uint8_t val, uint32_t len) {
     *temp++ = val;
 }
 
-/* void print_mem_values() { */
-/*   vga_write("Start: "); */
-/*   vga_put_hex((uint32_t)base); */
-/*   vga_put('\n'); */
+void print_mem_values() {
 
-/*   vga_write("Start of text: "); */
-/*   vga_put_hex((uint32_t)text); */
-/*   vga_put('\n'); */
+  vga_printf("Base: 0x%x\n", (uint32_t)base);
+  vga_printf("Virtual start: 0x%x\n", (uint32_t)kernel_virtual_start);
+  vga_printf("Physical start: 0x%x\n", (uint32_t)kernel_physical_start);
+  vga_printf("Start of text: 0x%x\n", (uint32_t)text);
+  vga_printf("End of text: 0x%x\n", (uint32_t)etext);
+  vga_printf("Start of rodata: 0x%x\n", (uint32_t)rodata);
+  vga_printf("End of rodata: 0x%x\n", (uint32_t)erodata);
+  vga_printf("Start of data: 0x%x\n", (uint32_t)data);
+  vga_printf("End of data: 0x%x\n", (uint32_t)edata);
+  vga_printf("Start of bss: 0x%x\n", (uint32_t)bss);
+  vga_printf("End of bss: 0x%x\n", (uint32_t)ebss);
+  vga_printf("Virtual end: 0x%x\n", (uint32_t)kernel_virtual_end);
+  vga_printf("Physical end: 0x%x\n", (uint32_t)kernel_physical_end);
 
-/*   vga_write("End of text: "); */
-/*   vga_put_hex((uint32_t)etext); */
-/*   vga_put('\n'); */
 
-/*   vga_write("Start of data: "); */
-/*   vga_put_hex((uint32_t)data); */
-/*   vga_put('\n'); */
 
-/*   vga_write("End of data: "); */
-/*   vga_put_hex((uint32_t)edata); */
-/*   vga_put('\n'); */
+  /* vga_write("Start of text: 0x"); */
+  /* vga_put_hex((uint32_t)text); */
+  /* vga_put('\n'); */
 
-/*   vga_write("Start of bss: "); */
-/*   vga_put_hex((uint32_t)bss); */
-/*   vga_put('\n'); */
+  /* vga_write("End of text: 0x"); */
+  /* vga_put_hex((uint32_t)etext); */
+  /* vga_put('\n'); */
 
-/*   vga_write("End of bss: "); */
-/*   vga_put_hex((uint32_t)ebss); */
-/*   vga_put('\n'); */
+  /* vga_write("Start of data: 0x"); */
+  /* vga_put_hex((uint32_t)data); */
+  /* vga_put('\n'); */
 
-/*   vga_write("End: "); */
-/*   vga_put_hex((uint32_t)end); */
-/*   vga_put('\n'); */
-/* } */
+  /* vga_write("End of data: 0x"); */
+  /* vga_put_hex((uint32_t)edata); */
+  /* vga_put('\n'); */
+
+  /* vga_write("Start of bss: 0x"); */
+  /* vga_put_hex((uint32_t)bss); */
+  /* vga_put('\n'); */
+
+  /* vga_write("End of bss: 0x"); */
+  /* vga_put_hex((uint32_t)ebss); */
+  /* vga_put('\n'); */
+
+  /* vga_write("Virtual end: 0x"); */
+  /* vga_put_hex((uint32_t)kernel_virtual_end); */
+  /* vga_put('\n'); */
+
+  /* vga_write("Physical end: 0x"); */
+  /* vga_put_hex((uint32_t)kernel_physical_end); */
+  /* vga_put('\n'); */
+}
 

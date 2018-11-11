@@ -5,6 +5,7 @@
 #include <device/keyboard.h>
 #include <kernel/interrupts.h>
 #include <device/timer.h>
+#include <libc/mem.h>
 
 
 const char *logo = "                              ___  ____  \n"
@@ -27,6 +28,8 @@ int kmain() {
   vga_puts(logo);
 
   ENABLE_INT();
+
+  print_mem_values();
 
   return 0;
 }
