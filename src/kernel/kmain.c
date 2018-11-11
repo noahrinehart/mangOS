@@ -1,12 +1,11 @@
-#include <types.h>
+#include <device/keyboard.h>
+#include <device/timer.h>
+#include <device/vga.h>
 #include <kernel/gdt.h>
 #include <kernel/idt.h>
-#include <device/vga.h>
-#include <device/keyboard.h>
 #include <kernel/interrupts.h>
-#include <device/timer.h>
 #include <libc/mem.h>
-
+#include <types.h>
 
 const char *logo = "                              ___  ____  \n"
                    " _ __ ___   __ _ _ __   __ _ / _ \\/ ___| \n"
@@ -22,7 +21,6 @@ int kmain() {
 
   init_keyboard();
   init_timer();
-
 
   vga_clear();
   vga_puts(logo);

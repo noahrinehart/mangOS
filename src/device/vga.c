@@ -170,9 +170,7 @@ void vga_put_at_color(const char c, uint8_t x, uint8_t y, uint8_t color) {
   vga_put_color(c, color);
 }
 
-void vga_puts(const char *str) {
-  vga_printf("%s\n", str);
-}
+void vga_puts(const char *str) { vga_printf("%s\n", str); }
 
 void vga_printf(const char *format, ...) {
   uint32_t *arg = (uint32_t *)&format;
@@ -206,4 +204,3 @@ void vga_printf(const char *format, ...) {
     }
   }
 }
-

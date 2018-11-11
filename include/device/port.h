@@ -30,4 +30,3 @@ uint16_t inw(uint16_t port);
 void outw(uint16_t port, uint16_t value);
 
 #endif // IO_H
-

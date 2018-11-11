@@ -1,8 +1,8 @@
-#include <types.h>
 #include <device/keyboard.h>
 #include <device/port.h>
-#include <kernel/isr.h>
 #include <device/vga.h>
+#include <kernel/isr.h>
+#include <types.h>
 
 uint8_t kbdus[128] = {
     0, /* None */
@@ -175,4 +175,3 @@ static void keyboard_handler() {
 void init_keyboard(void) {
   register_interrupt_handler(IRQ1, &keyboard_handler);
 }
-

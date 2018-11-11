@@ -29,7 +29,6 @@ char *strcpy(char *dest, const char *src);
  */
 char *strcat(char *dest, const char *src);
 
-
 /**
  * Return length of string
  * @param src source string
@@ -38,6 +37,3 @@ char *strcat(char *dest, const char *src);
 int strlen(char *src);
 
 #endif // STRING_H
-
-
-

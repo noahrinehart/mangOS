@@ -1,7 +1,7 @@
-#include <device/timer.h>
 #include <device/port.h>
-#include <kernel/isr.h>
+#include <device/timer.h>
 #include <device/vga.h>
+#include <kernel/isr.h>
 
 uint32_t clktick = 0;
 
@@ -27,4 +27,3 @@ void init_timer(void) {
   outb(0x40, l);
   outb(0x40, h);
 }
-

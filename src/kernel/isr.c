@@ -1,6 +1,6 @@
-#include <kernel/isr.h>
-#include <device/vga.h>
 #include <device/port.h>
+#include <device/vga.h>
+#include <kernel/isr.h>
 
 isr_t interrupt_handlers[256];
 
@@ -26,5 +26,3 @@ void irq_handler(struct registers regs) {
     handler(regs);
   }
 }
-
-

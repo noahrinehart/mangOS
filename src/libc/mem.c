@@ -1,5 +1,5 @@
-#include <libc/mem.h>
 #include <device/vga.h>
+#include <libc/mem.h>
 
 void memcpy(uint8_t *dest, const uint8_t *src, uint32_t len) {
   const uint8_t *sp = (const uint8_t *)src;
@@ -29,8 +29,6 @@ void print_mem_values() {
   vga_printf("End of bss: 0x%x\n", (uint32_t)ebss);
   vga_printf("Virtual end: 0x%x\n", (uint32_t)kernel_virtual_end);
   vga_printf("Physical end: 0x%x\n", (uint32_t)kernel_physical_end);
-
-
 
   /* vga_write("Start of text: 0x"); */
   /* vga_put_hex((uint32_t)text); */
@@ -64,4 +62,3 @@ void print_mem_values() {
   /* vga_put_hex((uint32_t)kernel_physical_end); */
   /* vga_put('\n'); */
 }
-

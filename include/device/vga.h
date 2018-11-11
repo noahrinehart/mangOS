@@ -126,7 +126,6 @@ void vga_put_at(const char c, uint8_t x, uint8_t y);
  */
 void vga_put_at_color(const char c, uint8_t x, uint8_t y, uint8_t color);
 
-
 /**
  * Put string and newline
  * @param str string to print
@@ -140,4 +139,3 @@ void vga_puts(const char *str);
 void vga_printf(const char *format, ...);
 
 #endif // VGA_H
-

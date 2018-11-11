@@ -23,7 +23,6 @@ struct gdt_ptr {
   uint32_t base;  // Address of first gdt_entry_t
 } __attribute__((packed));
 
-
 /**
  * Sets new GDT with pointer to new array
  * @param addr address of gdt table
@@ -36,4 +35,3 @@ extern void set_gdt(uint32_t addr);
 void init_gdt(void);
 
 #endif // GDT_H
-

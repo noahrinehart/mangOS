@@ -28,7 +28,6 @@ void memcpy(uint8_t *dest, const uint8_t *src, uint32_t len);
  */
 void print_mem_values(void);
 
-
 extern char base[];    /* Start of memory         */
 extern char text[];    /* Start of text segment   */
 extern char etext[];   /* End of text segment     */
@@ -45,4 +44,3 @@ extern char kernel_virtual_end[];    /* End of virtual memory of kernel  */
 extern char kernel_physical_end[];   /* End of physical memory of kernel */
 
 #endif // MEM_H
-

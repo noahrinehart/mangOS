@@ -1,6 +1,6 @@
-#include <types.h>
 #include <device/cmos.h>
 #include <device/port.h>
+#include <types.h>
 
 static uint32_t century_register = 0x00;
 
@@ -87,4 +87,3 @@ void read_rtc(void) {
       year += 100;
   }
 }
-

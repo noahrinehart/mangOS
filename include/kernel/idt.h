@@ -12,7 +12,7 @@ struct idt_entry {
   uint8_t always0;    // Must always be 0
   uint8_t flags;      // More flags
   uint16_t base_high; // Upper 16 bits of address to jump to
-} __attribute__((packed)); 
+} __attribute__((packed));
 
 /**
  * Struct holding length and pointer to first entry in IDT
@@ -21,7 +21,6 @@ struct idt_ptr {
   uint16_t limit; // Length of IDT in bytes - 1
   uint32_t base;  // Address of first element in idt_entry array
 } __attribute__((packed));
-
 
 /**
  * Sets the IDT
@@ -81,4 +80,3 @@ extern void irq14();
 extern void irq15();
 
 #endif // IDT_H
-

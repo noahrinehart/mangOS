@@ -23,4 +23,3 @@ enum {
 void read_rtc(void);
 
 #endif // CMOS_H
-

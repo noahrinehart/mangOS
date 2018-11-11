@@ -9,15 +9,15 @@ BUILD_DIR	:= build
 INCLUDE_DIR	:= include
 ISO_DIR		:= $(SOURCE_DIR)/iso
 
-MODULES := device kernel libc
+MODULES := device kernel libc common
 
 SOURCE_MOD 	:= $(addprefix $(SOURCE_DIR)/,$(MODULES))
-INCLUDE_MOD	:= $(addprefix $(BUILD_DIR)/,$(MODULES))
+INCLUDE_MOD	:= $(addprefix $(INCLUDE_DIR)/,$(MODULES))
 BUILD_MOD	:= $(addprefix $(BUILD_DIR)/,$(MODULES))
 
 SOURCE_C	:= $(foreach sdir,$(SOURCE_MOD),$(wildcard $(sdir)/*.c))
 SOURCE_S	:= $(foreach sdir,$(SOURCE_MOD),$(wildcard $(sdir)/*.s))
-SOURCE_H	:= $(foreach sdir,$(SOURCE_MOD),$(wildcard $(sdir)/*.h))
+SOURCE_H	:= $(foreach idir,$(INCLUDE_MOD),$(wildcard $(idir)/*.h))
 OBJECT_C	:= $(patsubst $(SOURCE_DIR)/%.c,$(BUILD_DIR)/%.o,$(SOURCE_C))
 OBJECT_S	:= $(patsubst $(SOURCE_DIR)/%.s,$(BUILD_DIR)/%.o,$(SOURCE_S))
 OBJECTS		:= $(OBJECT_C) $(OBJECT_S)
@@ -32,7 +32,7 @@ ASFLAGS	:= -f elf32
 KERNEL	:= $(BUILD_DIR)/mangOS.elf
 ISO		:= $(BUILD_DIR)/mangOS.iso
 
-.PHONY: all run clean
+.PHONY: all run clean debug format tidy
 .SUFFIXES: .o .s. c
 
 all: $(KERNEL)
@@ -73,3 +73,14 @@ $(ISO): $(KERNEL)
 
 clean:
 	rm -rf build
+
+debug: $(ISO)
+	@echo "Run gdb in this directory"
+	qemu-system-x86_64 -cdrom $(ISO) -S -s
+
+format:
+	clang-format -i $(SOURCE_C)
+	clang-format -i $(SOURCE_H)
+
+tidy:
+	clang-tidy $(SOURCE_C) -- $(CFLAGS)
