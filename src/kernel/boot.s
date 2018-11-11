@@ -62,7 +62,7 @@ higher_half_loader:
   push ebx              ; Load multiboot info
   push eax              ; Load multiboot magic
   
-	call kmain            ; Start Kernel
+  call kmain            ; Start Kernel
 
 ;	mov word [0xC00B8000], 0x2848               ; H
 ;	mov word [0xC00B8002], 0x2845               ; E

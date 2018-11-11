@@ -5,6 +5,7 @@
 #include <kernel/idt.h>
 #include <kernel/interrupts.h>
 #include <libc/mem.h>
+#include <multiboot.h>
 #include <types.h>
 
 const char *logo = "                              ___  ____  \n"
@@ -14,7 +15,11 @@ const char *logo = "                              ___  ____  \n"
                    "|_| |_| |_|\\__,_|_| |_|\\__, |\\___/|____/ \n"
                    "                       |___/             \n";
 
-int kmain() {
+int kmain(uint32_t multiboot_magic, void *multiboot_info) {
+
+  vga_clear();
+
+  check_multiboot(multiboot_magic, multiboot_info);
 
   init_gdt();
   init_idt();
@@ -22,7 +27,6 @@ int kmain() {
   init_keyboard();
   init_timer();
 
-  vga_clear();
   vga_puts(logo);
 
   ENABLE_INT();

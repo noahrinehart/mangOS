@@ -25,7 +25,7 @@ OBJECTS		:= $(OBJECT_C) $(OBJECT_S)
 LINK_SCRIPT	:= $(SOURCE_DIR)/kernel/link.ld
 
 CFLAGS	:= -Iinclude -Iinclude/common -m32 -ffreestanding -nostdlib -nostdinc -fno-builtin \
-         	-Wall -Wextra --target=i686-pc-none-elf -march=i686
+         	-Wall -Wextra --target=i686-pc-none-elf -march=i686 -mno-red-zone
 LDFLAGS	:= -T $(LINK_SCRIPT)
 ASFLAGS	:= -f elf32
 
