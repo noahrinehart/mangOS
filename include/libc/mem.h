@@ -28,14 +28,21 @@ void memcpy(uint8_t *dest, const uint8_t *src, uint32_t len);
  */
 void print_mem_values(void);
 
-// extern char base[];  /* Start of memory */
-// extern char text[];  /* Start of text segment  */
-// extern char etext[]; /* End of text segment    */
-// extern char data[];  /* Start of data segment  */
-// extern char edata[]; /* End of data segment    */
-// extern char bss[];   /* Start of bss segment   */
-// extern char ebss[];  /* End of bss segment   */
-// extern char end[];   /* End of program   */
+
+extern void *base;    /* Start of memory         */
+extern void *text;    /* Start of text segment   */
+extern void *etext;   /* End of text segment     */
+extern void *rodata;  /* Start of rodata segment */
+extern void *erodata; /* End of rodata segment   */
+extern void *data;    /* Start of data segment   */
+extern void *edata;   /* End of data segment     */
+extern void *bss;     /* Start of bss segment    */
+extern void *ebss;    /* End of bss segment      */
+
+extern void *kernel_virtual_start;  /* Start of virtual memory          */
+extern void *kernel_physical_start; /* Start of physical memory         */
+extern void *kernel_virtual_end;    /* End of virtual memory of kernel  */
+extern void *kernel_physical_end;   /* End of physical memory of kernel */
 
 #endif // MEM_H
 
