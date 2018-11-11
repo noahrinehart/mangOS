@@ -222,8 +222,10 @@ struct multiboot_color {
 
 struct multiboot_mmap_entry {
   multiboot_uint32_t size;
-  multiboot_uint64_t addr;
-  multiboot_uint64_t len;
+  multiboot_uint32_t addr_low;
+  multiboot_uint32_t addr_high;
+  multiboot_uint32_t len_low;
+  multiboot_uint32_t len_high;
 #define MULTIBOOT_MEMORY_AVAILABLE 1
 #define MULTIBOOT_MEMORY_RESERVED 2
 #define MULTIBOOT_MEMORY_ACPI_RECLAIMABLE 3
@@ -271,6 +273,25 @@ void check_multiboot(uint32_t mboot_magic, void *info) {
   multiboot_info_t *mboot_info =
       (multiboot_info_t *)((uint32_t)info + 0xC0000000);
   ASSERT("MULTIBOOT info flags nonnull", mboot_info->flags != 0);
+
+  vga_printf("mem lower: 0x%x, mem upper: 0x%x\n", mboot_info->mem_lower,
+             mboot_info->mem_upper);
+
+  uint32_t mmap_addr = (uint32_t)mboot_info->mmap_addr + 0xC0000000;
+  multiboot_memory_map_t *mmap = (multiboot_memory_map_t *)mmap_addr;
+  vga_printf("base_addr_high = 0x%x, base_addr_low = 0x%x, "
+             "length_high = 0x%x, length_low = 0x%x, type = 0x%x\n",
+             mmap->addr_high, mmap->addr_low, mmap->len_high, mmap->len_low,
+             (uint32_t)mmap->type);
+  while (mmap < mmap_addr + mboot_info->mmap_length) {
+    mmap = (multiboot_memory_map_t *)((unsigned int)mmap + mmap->size +
+                                      sizeof(mmap->size));
+    //   if ((uint32_t)mmap->type == MULTIBOOT_MEMORY_AVAILABLE)
+    vga_printf("base_addr_high = 0x%x, base_addr_low = 0x%x, "
+               "length_high = 0x%x, length_low = 0x%x, type = 0x%x\n",
+               mmap->addr_high, mmap->addr_low, mmap->len_high, mmap->len_low,
+               (uint32_t)mmap->type);
+  }
 }
 
 #endif /*  ! MULTIBOOT_HEADER */

@@ -27,11 +27,11 @@ int kmain(uint32_t multiboot_magic, void *multiboot_info) {
   init_keyboard();
   init_timer();
 
-  vga_puts(logo);
+  // vga_puts(logo);
 
   ENABLE_INT();
 
-  print_mem_values();
+  // print_mem_values();
 
   return 0;
 }

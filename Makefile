@@ -2,7 +2,7 @@ CC := clang
 AS := nasm
 LD := ld.lld
 
-QEMU := qemu-system-x86_64
+QEMU := qemu-system-i386
 
 SOURCE_DIR	:= src
 BUILD_DIR	:= build
@@ -53,7 +53,7 @@ $(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.s
 	@echo "[AS] $@"
 
 run: $(ISO)
-	$(QEMU) -cdrom $<
+	$(QEMU) -cdrom $< -m 4G
 
 $(ISO): $(KERNEL)
 	mkdir -p $(BUILD_DIR)/iso/boot/grub
@@ -64,7 +64,7 @@ $(ISO): $(KERNEL)
           -b boot/grub/stage2_eltorito	\
           -no-emul-boot					\
           -boot-load-size 4				\
-          -A os							\
+          -A os										 \
           -input-charset utf8			\
           -quiet						\
           -boot-info-table				\
@@ -76,7 +76,7 @@ clean:
 
 debug: $(ISO)
 	@echo "Run gdb in this directory"
-	qemu-system-x86_64 -cdrom $(ISO) -S -s
+	$(QEMU) -cdrom $(ISO) -S -s
 
 format:
 	clang-format -i $(SOURCE_C)

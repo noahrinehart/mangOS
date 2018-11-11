@@ -50,26 +50,16 @@ start equ (_start - KERNEL_VIRTUAL_BASE)
 	jmp ecx
 
 higher_half_loader:
-	; Unmap identity-mapped first 4MB of physical address space
-	mov dword [PageDirectoryVirtualAddress], 0
-	invlpg [0]
+  ; Unmap identity-mapped first 4MB of physical address space
+  mov dword [PageDirectoryVirtualAddress], 0
+  invlpg [0]
 
-	mov esp, stack_top
-	
-	; add ebx, KERNEL_VIRTUAL_BASE
-	; push ebx
+  mov esp, stack_top
 
   push ebx              ; Load multiboot info
   push eax              ; Load multiboot magic
   
   call kmain            ; Start Kernel
-
-;	mov word [0xC00B8000], 0x2848               ; H
-;	mov word [0xC00B8002], 0x2845               ; E
-;	mov word [0xC00B8004], 0x284C               ; L
-;	mov word [0xC00B8006], 0x284C               ; L
-;	mov word [0xC00B8008], 0x284F               ; O
-;	mov word [0xC00B800A], 0x2821               ; !
 
 .halt:
   hlt
