@@ -3,22 +3,18 @@
 ;
 
 global start
-global KERNEL_VIRTUAL_BASE
-global PageDirectoryVirtualAddress
-global stack_bottom
-
 
 extern kmain
 
 ; Virtual base address of kernel space. Used to convert virtual address into physical
 ; addresses until paging is enabled.
-KERNEL_VIRTUAL_BASE equ 0xC0000000								 ; 3GB
+KERNEL_VIRTUAL_BASE equ 0xC0000000				   ; 3GB
 KERNEL_PAGE_NUMBER equ (KERNEL_VIRTUAL_BASE >> 22) ; Page directory index of kernal's 4MB PTE
 
 
 section .data
 align 0x1000
-PageDirectoryVirtualAddress:
+page_directory_virtual_address:
     ; Identity maps first 4MB of 32-bit physical address space
     ; Sets Huge Page, R/W, Present bits
     dd 0x00000083
@@ -31,8 +27,8 @@ align 4
 _start:
 start equ (_start - KERNEL_VIRTUAL_BASE)
     ; Must be PIC and use phsycial addresss until paging setup
-    PageDirectoryPhysicalAddress equ (PageDirectoryVirtualAddress - KERNEL_VIRTUAL_BASE) ; 0x1004000
-    mov ecx, PageDirectoryPhysicalAddress
+    page_directory_physical_address equ (page_directory_virtual_address - KERNEL_VIRTUAL_BASE) ; 0x1004000
+    mov ecx, page_directory_physical_address
     mov cr3, ecx	; Load page directory base register
 
     mov ecx, cr4
@@ -49,7 +45,7 @@ start equ (_start - KERNEL_VIRTUAL_BASE)
 
 higher_half_loader:
   ; Unmap identity-mapped first 4MB of physical address space
-  mov dword [PageDirectoryVirtualAddress], 0
+  mov dword [page_directory_virtual_address], 0
   invlpg [0]
 
   ; Setup stack
