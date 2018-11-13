@@ -271,7 +271,7 @@ void check_multiboot(uint32_t mboot_magic, void *info) {
          mboot_magic == MULTIBOOT_BOOTLOADER_MAGIC);
   // View paged version of memory (higher half)
   multiboot_info_t *mboot_info =
-      (multiboot_info_t *)((uint32_t)info + 0xC0000000);
+      (multiboot_info_t *)(uint32_t)info;
   ASSERT("MULTIBOOT info flags nonnull", mboot_info->flags != 0);
 
   vga_printf("mem lower: 0x%x, mem upper: 0x%x\n", mboot_info->mem_lower,
