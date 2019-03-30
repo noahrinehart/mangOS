@@ -1,3 +1,4 @@
+#include <device/cmos.h>
 #include <device/keyboard.h>
 #include <device/timer.h>
 #include <device/vga.h>
@@ -20,7 +21,7 @@ int kmain(uint32_t multiboot_magic, void *multiboot_info) {
 
   vga_clear();
 
-  check_multiboot(multiboot_magic, multiboot_info);
+  // check_multiboot(multiboot_magic, multiboot_info);
 
   init_gdt();
   init_idt();
@@ -29,6 +30,9 @@ int kmain(uint32_t multiboot_magic, void *multiboot_info) {
   init_timer();
 
   // vga_puts(logo);
+
+  read_rtc();
+  print_rtc();
 
   ENABLE_INT();
 

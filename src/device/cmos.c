@@ -1,5 +1,6 @@
 #include <device/cmos.h>
 #include <device/port.h>
+#include <device/vga.h>
 #include <types.h>
 
 static uint32_t century_register = 0x00;
@@ -86,4 +87,9 @@ void read_rtc(void) {
     if (year < CURRENT_YEAR)
       year += 100;
   }
+}
+
+
+void print_rtc() {
+  vga_printf("%d-%d-%d %d:%d:%d", year, month, day, hour, minute, second);
 }

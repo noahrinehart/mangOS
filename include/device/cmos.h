@@ -22,4 +22,9 @@ enum {
  */
 void read_rtc(void);
 
+/**
+ * Prints rtc data
+ */
+void print_rtc(void);
+
 #endif // CMOS_H
