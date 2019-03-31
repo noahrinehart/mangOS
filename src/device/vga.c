@@ -15,8 +15,7 @@ static void move_cursor() {
 }
 
 static void scroll() {
-  uint16_t blank =
-      vga_entry(' ', vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK));
+  uint16_t blank = vga_entry(' ', vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK));
 
   if (cursor_y >= VGA_HEIGHT) {
     int i;
@@ -31,8 +30,7 @@ static void scroll() {
 }
 
 void vga_clear(void) {
-  uint16_t blank =
-      vga_entry(' ', vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK));
+  uint16_t blank = vga_entry(' ', vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK));
 
   int i;
   for (i = 0; i < VGA_WIDTH * VGA_HEIGHT; i++) {

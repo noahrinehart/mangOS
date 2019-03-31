@@ -4,9 +4,7 @@
 
 isr_t interrupt_handlers[256];
 
-void register_interrupt_handler(uint8_t n, isr_t handler) {
-  interrupt_handlers[n] = handler;
-}
+void register_interrupt_handler(uint8_t n, isr_t handler) { interrupt_handlers[n] = handler; }
 
 void isr_handler(struct registers regs) {
   vga_write("received interrupt: ");

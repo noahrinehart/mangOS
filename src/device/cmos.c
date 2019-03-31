@@ -58,9 +58,8 @@ void read_rtc(void) {
     if (century_register != 0) {
       century = get_RTC_register(century_register);
     }
-  } while ((last_second != second) || (last_minute != minute) ||
-           (last_hour != hour) || (last_day != day) || (last_month != month) ||
-           (last_year != year) || (last_century != century));
+  } while ((last_second != second) || (last_minute != minute) || (last_hour != hour) || (last_day != day) ||
+           (last_month != month) || (last_year != year) || (last_century != century));
 
   registerB = get_RTC_register(0x0B);
 
@@ -89,7 +88,4 @@ void read_rtc(void) {
   }
 }
 
-
-void print_rtc() {
-  vga_printf("%d-%d-%d %d:%d:%d", year, month, day, hour, minute, second);
-}
+void print_rtc() { vga_printf("%d-%d-%d %d:%d:%d", year, month, day, hour, minute, second); }

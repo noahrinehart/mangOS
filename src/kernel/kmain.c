@@ -17,11 +17,11 @@ const char *logo = "                              ___  ____  \n"
                    "                       |___/             \n";
 
 void print_mem_values();
-int kmain(uint32_t multiboot_magic, void *multiboot_info) {
+int kmain(uint32_t multiboot_magic, uint32_t *multiboot_info) {
 
   vga_clear();
 
-  // check_multiboot(multiboot_magic, multiboot_info);
+  check_multiboot(multiboot_magic, multiboot_info);
 
   init_gdt();
   init_idt();

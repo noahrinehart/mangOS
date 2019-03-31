@@ -38,9 +38,7 @@ enum vga_color {
  * @param bg background color
  * @return The vga entry color
  */
-static inline uint8_t vga_entry_color(enum vga_color fg, enum vga_color bg) {
-  return (bg << 4) | (fg & 0x0F);
-}
+static inline uint8_t vga_entry_color(enum vga_color fg, enum vga_color bg) { return (bg << 4) | (fg & 0x0F); }
 
 /**
  * Get an entry from a color and a character
@@ -48,9 +46,7 @@ static inline uint8_t vga_entry_color(enum vga_color fg, enum vga_color bg) {
  * @param color the color to add to the character
  * @return the vga entry with color and character
  */
-static inline uint16_t vga_entry(unsigned char c, uint8_t color) {
-  return c | color << 8;
-}
+static inline uint16_t vga_entry(unsigned char c, uint8_t color) { return c | color << 8; }
 
 /**
  * Clear the vga output
