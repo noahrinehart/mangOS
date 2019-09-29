@@ -1,6 +1,6 @@
-#include <device/keyboard.h>
-#include <device/port.h>
-#include <device/vga.h>
+#include <drivers/keyboard.h>
+#include <drivers/port.h>
+#include <drivers/vga.h>
 #include <kernel/isr.h>
 #include <types.h>
 

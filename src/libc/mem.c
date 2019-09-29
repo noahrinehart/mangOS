@@ -1,4 +1,4 @@
-#include <device/vga.h>
+#include <drivers/vga.h>
 #include <libc/mem.h>
 
 void memcpy(uint8_t* dest, const uint8_t* src, uint32_t len) {

@@ -56,7 +56,7 @@
 
 /* is there basic lower/upper memory information? */
 #define MULTIBOOT_INFO_MEMORY 0x00000001
-/* is there a boot device set? */
+/* is there a boot drivers set? */
 #define MULTIBOOT_INFO_BOOTDEV 0x00000002
 /* is the command-line defined? */
 #define MULTIBOOT_INFO_CMDLINE 0x00000004
@@ -147,7 +147,7 @@ struct multiboot_info {
   multiboot_uint32_t mem_upper;
 
   /* "root" partition */
-  multiboot_uint32_t boot_device;
+  multiboot_uint32_t boot_drivers;
 
   /* Kernel command line */
   multiboot_uint32_t cmdline;

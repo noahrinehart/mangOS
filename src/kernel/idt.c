@@ -1,4 +1,4 @@
-#include <device/pic.h>
+#include <drivers/pic.h>
 #include <kernel/idt.h>
 #include <libc/mem.h>
 

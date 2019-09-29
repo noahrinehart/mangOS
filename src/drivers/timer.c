@@ -1,6 +1,6 @@
-#include <device/port.h>
-#include <device/timer.h>
-#include <device/vga.h>
+#include <drivers/port.h>
+#include <drivers/timer.h>
+#include <drivers/vga.h>
 #include <kernel/isr.h>
 
 uint32_t clktick = 0;

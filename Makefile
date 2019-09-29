@@ -9,7 +9,7 @@ BUILD_DIR	:= build
 INCLUDE_DIR	:= include
 ISO_DIR		:= $(SOURCE_DIR)/iso
 
-MODULES := device kernel libc common
+MODULES := drivers kernel libc common
 
 SOURCE_MOD 	:= $(addprefix $(SOURCE_DIR)/,$(MODULES))
 INCLUDE_MOD	:= $(addprefix $(INCLUDE_DIR)/,$(MODULES))

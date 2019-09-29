@@ -1,5 +1,5 @@
-#include <device/pic.h>
-#include <device/port.h>
+#include <drivers/pic.h>
+#include <drivers/port.h>
 
 void pic_init(void) {
   unsigned char a1, a2;

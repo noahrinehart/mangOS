@@ -1,7 +1,7 @@
-#include <device/cmos.h>
-#include <device/keyboard.h>
-#include <device/timer.h>
-#include <device/vga.h>
+#include <drivers/cmos.h>
+#include <drivers/keyboard.h>
+#include <drivers/timer.h>
+#include <drivers/vga.h>
 #include <kernel/gdt.h>
 #include <kernel/idt.h>
 #include <kernel/interrupts.h>
@@ -29,7 +29,7 @@ int kmain(uint32_t multiboot_magic, uint32_t* multiboot_info) {
   ENABLE_INT();
 
   // print_logo();
-  // print_mem_values();
+  print_mem_values();
 
   return 0;
 }

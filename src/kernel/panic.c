@@ -1,4 +1,4 @@
-#include <device/vga.h>
+#include <drivers/vga.h>
 #include <kernel/panic.h>
 
 void panic(const char* message, const char* file, uint32_t line) {

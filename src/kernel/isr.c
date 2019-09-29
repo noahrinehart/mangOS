@@ -1,5 +1,5 @@
-#include <device/port.h>
-#include <device/vga.h>
+#include <drivers/port.h>
+#include <drivers/vga.h>
 #include <kernel/isr.h>
 
 isr_t interrupt_handlers[256];

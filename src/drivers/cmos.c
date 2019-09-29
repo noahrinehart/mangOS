@@ -1,6 +1,6 @@
-#include <device/cmos.h>
-#include <device/port.h>
-#include <device/vga.h>
+#include <drivers/cmos.h>
+#include <drivers/port.h>
+#include <drivers/vga.h>
 #include <types.h>
 
 static uint32_t century_register = 0x00;

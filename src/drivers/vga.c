@@ -1,5 +1,5 @@
-#include <device/port.h>
-#include <device/vga.h>
+#include <drivers/port.h>
+#include <drivers/vga.h>
 
 uint16_t* VGA_MEMORY = (uint16_t*) 0xC00B8000;
 
