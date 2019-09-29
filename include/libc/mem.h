@@ -13,7 +13,7 @@
  * @param val value to set
  * @param len length of words to set
  */
-void memset(uint8_t *dest, uint8_t val, uint32_t len);
+void memset(uint8_t* dest, uint8_t val, uint32_t len);
 
 /**
  * Copy memory from one place to another
@@ -21,6 +21,6 @@ void memset(uint8_t *dest, uint8_t val, uint32_t len);
  * @param src source address
  * @param len length to copy
  */
-void memcpy(uint8_t *dest, const uint8_t *src, uint32_t len);
+void memcpy(uint8_t* dest, const uint8_t* src, uint32_t len);
 
 #endif // MEM_H

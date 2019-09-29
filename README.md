@@ -2,7 +2,21 @@
 
 > A simple hobby OS targeting x86
 
-#### How To Run
+## Dependencies
+* `nasm`
+* `clang`
+    * with linker (`lld.ld`)
+* `grub`
+* `mkisofs`
+* `qemu`
+* `gdb` (for debugging)
+* stage2_eldorito
+    * Download from [here](https://osdn.net/projects/sfnet_joesbootdisk/downloads/development/boots/iso/stage2_eltorito/) to `src/iso/stage2_eltorito`
+
+### Arch Linux
+`$ sudo pacman -S nasm clang lld grub cdrkit qemu gdb`
+
+## How To Run
 ```bash
 # clang, nasm, qemu, grub are required
 # Compile:
@@ -13,13 +27,16 @@ make run
 
 # Debug
 make debug
-# In a seperate terminal in the same directory (.gdbinit):
+# In a seperate terminal...
 gdb
 break kmain
 continue
 ```
 
-#### TODO
+### Note for gdb:
+> Note for `gdb`: you may get "...auto-loading has been decline", to fix this, follow the instructions to enable executation below for that directory
+
+## TODO
 - [x] Create starting point in 32 bit
 - [x] Create GDT
 - [x] Create basic IDT/IQR's
@@ -37,7 +54,7 @@ continue
 
 
 
-#### Resources
+## Resources
 * [https://wiki.osdev.org/Main_Page](https://wiki.osdev.org/Main_Page)
 * [http://www.jamesmolloy.co.uk/tutorial_html/](http://www.jamesmolloy.co.uk/tutorial_html/)
 * [http://www.osdever.net/bkerndev/Docs/title.htm](http://www.osdever.net/bkerndev/Docs/title.htm)

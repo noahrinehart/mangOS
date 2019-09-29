@@ -24,7 +24,7 @@ static void create_descriptor(int32_t num, uint32_t base, uint32_t limit, uint8_
 
 void init_gdt(void) {
   gdt_ptr.limit = (sizeof(struct gdt_entry) * 5) - 1;
-  gdt_ptr.base = (uint32_t)&gdt_entries;
+  gdt_ptr.base = (uint32_t) &gdt_entries;
 
   create_descriptor(0, 0, 0, 0, 0);                // Null segment
   create_descriptor(1, 0, 0xFFFFFFFF, 0x9A, 0xCF); // Kernel mode code segment
@@ -32,5 +32,5 @@ void init_gdt(void) {
   create_descriptor(3, 0, 0xFFFFFFFF, 0xFA, 0xCF); // User mode code segment
   create_descriptor(4, 0, 0xFFFFFFFF, 0xF2, 0xCF); // User mode data segment
 
-  set_gdt((uint32_t)&gdt_ptr);
+  set_gdt((uint32_t) &gdt_ptr);
 }

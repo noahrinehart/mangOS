@@ -1,7 +1,7 @@
 #include <device/port.h>
 #include <device/vga.h>
 
-uint16_t *VGA_MEMORY = (uint16_t *)0xC00B8000;
+uint16_t* VGA_MEMORY = (uint16_t*) 0xC00B8000;
 
 uint8_t cursor_x = 0;
 uint8_t cursor_y = 0;
@@ -48,7 +48,7 @@ void vga_put(const char c) {
 }
 
 void vga_put_color(const char c, uint8_t color) {
-  uint16_t *location;
+  uint16_t* location;
 
   // Backspace
   if (c == 0x08 && cursor_x) {
@@ -82,12 +82,12 @@ void vga_put_color(const char c, uint8_t color) {
   move_cursor();
 }
 
-void vga_write(const char *c) {
+void vga_write(const char* c) {
   uint8_t color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
   vga_write_color(c, color);
 }
 
-void vga_write_color(const char *c, uint8_t color) {
+void vga_write_color(const char* c, uint8_t color) {
   int i = 0;
   while (c[i])
     vga_put_color(c[i++], color);
@@ -168,14 +168,14 @@ void vga_put_at_color(const char c, uint8_t x, uint8_t y, uint8_t color) {
   vga_put_color(c, color);
 }
 
-void vga_puts(const char *str) { vga_printf("%s\n", str); }
+void vga_puts(const char* str) { vga_printf("%s\n", str); }
 
-void vga_printf(const char *format, ...) {
-  uint32_t *arg = (uint32_t *)&format;
+void vga_printf(const char* format, ...) {
+  uint32_t* arg = (uint32_t*) &format;
   arg++;
 
-  const char *str;
-  char *s;
+  const char* str;
+  char* s;
 
   for (str = format; *str != '\0'; str++) {
     if (*str != '%') {
@@ -186,7 +186,7 @@ void vga_printf(const char *format, ...) {
         vga_put(*arg++);
         break;
       case 's':
-        for (s = *(char **)arg++; *s != '\0'; s++)
+        for (s = *(char**) arg++; *s != '\0'; s++)
           vga_put(*s);
         break;
       case 'x':

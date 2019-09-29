@@ -70,14 +70,14 @@ void vga_put_color(const char c, uint8_t color);
  * Write a string to vga
  * @param str the string to print at the cursor
  */
-void vga_write(const char *str);
+void vga_write(const char* str);
 
 /**
  * Write a string with color to vga
  * @param str the string to print at the cursor
  * @param color the color
  */
-void vga_write_color(const char *str, uint8_t color);
+void vga_write_color(const char* str, uint8_t color);
 
 /**
  * Put an int in hex to next spot
@@ -126,12 +126,12 @@ void vga_put_at_color(const char c, uint8_t x, uint8_t y, uint8_t color);
  * Put string and newline
  * @param str string to print
  */
-void vga_puts(const char *str);
+void vga_puts(const char* str);
 
 /**
  * Printf to vga
  * @param format format to print as
  */
-void vga_printf(const char *format, ...);
+void vga_printf(const char* format, ...);
 
 #endif // VGA_H
