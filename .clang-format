@@ -1,6 +1,6 @@
 ---
 BasedOnStyle: LLVM
-IndentWidth: 2
+IndentWidth: 4
 ---
 Language: Cpp
 ColumnLimit: 120
@@ -12,3 +12,20 @@ SpaceBeforeParens: ControlStatements
 SpacesInCStyleCastParentheses: false
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterClass: true
+  AfterControlStatement: false
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterStruct: true
+  AfterUnion: true
+  AfterExternBlock: true
+  BeforeCatch: false
+  BeforeElse: false
+  IndentBraces: false
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
+IndentCaseLabels: true
